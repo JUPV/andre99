@@ -67,30 +67,57 @@
   <div class="layout">
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
-        <h1>📊 Fundamentus</h1>
+        <div class="sidebar-logo">📊</div>
+        <div class="sidebar-title">Fundamentus</div>
       </div>
+
       <nav class="sidebar-nav">
-        <a href="/dashboard.html">
-          <span class="icon">📈</span>
-          <span>Dashboard</span>
-        </a>
-        <a href="/empresas.html">
-          <span class="icon">🏢</span>
-          <span>Empresas</span>
-        </a>
-        <a href="/comparativo.html">
-          <span class="icon">📊</span>
-          <span>Comparativo</span>
-        </a>
-        <a href="/status-coletas.html">
-          <span class="icon">🔄</span>
-          <span>Status Coletas</span>
-        </a>
-        <a href="/cadastro.html">
-          <span class="icon">➕</span>
-          <span>Cadastrar</span>
-        </a>
+        <div class="nav-section">
+          <div class="nav-section-title">Principal</div>
+          <a href="dashboard.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span>Dashboard</span>
+          </a>
+          <a href="empresas.html" class="nav-item">
+            <span class="nav-icon">🏢</span>
+            <span>Empresas</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Gerenciamento</div>
+          <a href="cadastro.html" class="nav-item">
+            <span class="nav-icon">➕</span>
+            <span>Nova Empresa</span>
+          </a>
+          <a href="status-coletas.html" class="nav-item">
+            <span class="nav-icon">🔄</span>
+            <span>Status Coletas</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Análise</div>
+          <a href="comparativo.html" class="nav-item">
+            <span class="nav-icon">📈</span>
+            <span>Comparativos</span>
+          </a>
+          <a href="#" class="nav-item" onclick="alert('Em breve!'); return false;">
+            <span class="nav-icon">📑</span>
+            <span>Relatórios</span>
+          </a>
+        </div>
       </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar">A</div>
+          <div class="user-details">
+            <div class="user-name">André</div>
+            <div class="user-role">Administrador</div>
+          </div>
+        </div>
+      </div>
     </aside>
 
     <main class="main-content" id="mainContent">

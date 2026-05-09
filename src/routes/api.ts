@@ -401,15 +401,15 @@ router.get('/empresas/:codigo/detalhes-completos', async (req, res) => {
       const anterior = trimestrais[1];
 
       variacoes = {
-        receita12m: anterior.receitaLiquida12m ?
+        receita12m: anterior.receitaLiquida12m && atual.receitaLiquida12m ?
           ((atual.receitaLiquida12m - anterior.receitaLiquida12m) / Math.abs(anterior.receitaLiquida12m)) * 100 : null,
-        lucro12m: anterior.lucroLiquido12m ?
+        lucro12m: anterior.lucroLiquido12m && atual.lucroLiquido12m ?
           ((atual.lucroLiquido12m - anterior.lucroLiquido12m) / Math.abs(anterior.lucroLiquido12m)) * 100 : null,
-        ebit12m: anterior.ebit12m ?
+        ebit12m: anterior.ebit12m && atual.ebit12m ?
           ((atual.ebit12m - anterior.ebit12m) / Math.abs(anterior.ebit12m)) * 100 : null,
-        receita3m: anterior.receitaLiquida3m ?
+        receita3m: anterior.receitaLiquida3m && atual.receitaLiquida3m ?
           ((atual.receitaLiquida3m - anterior.receitaLiquida3m) / Math.abs(anterior.receitaLiquida3m)) * 100 : null,
-        lucro3m: anterior.lucroLiquido3m ?
+        lucro3m: anterior.lucroLiquido3m && atual.lucroLiquido3m ?
           ((atual.lucroLiquido3m - anterior.lucroLiquido3m) / Math.abs(anterior.lucroLiquido3m)) * 100 : null,
       };
     }
