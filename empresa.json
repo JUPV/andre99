@@ -1,0 +1,638 @@
+[
+  {
+    "ticker": "MNPR3",
+    "nome": "Minupar Participações S.A.",
+    "setor": "Consumo Não Cíclico",
+    "subsetor": "Carnes e Derivados"
+  },
+  {
+    "ticker": "SEER3",
+    "nome": "Ser Educacional S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Educação"
+  },
+  {
+    "ticker": "AZUL4",
+    "nome": "Azul S.A.",
+    "setor": "Bens Industriais",
+    "subsetor": "Transporte Aéreo"
+  },
+  {
+    "ticker": "MRVE3",
+    "nome": "MRV Engenharia e Participações S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Construção Civil"
+  },
+  {
+    "ticker": "COGN3",
+    "nome": "Cogna Educação S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Educação"
+  },
+  {
+    "ticker": "EMAE4",
+    "nome": "EMAE - Empresa Metropolitana de Águas e Energia S.A.",
+    "setor": "Utilidade Pública",
+    "subsetor": "Energia Elétrica"
+  },
+  {
+    "ticker": "ALPK3",
+    "nome": "Estapar Participações S.A.",
+    "setor": "Bens Industriais",
+    "subsetor": "Serviços de Apoio"
+  },
+  {
+    "ticker": "HBSA3",
+    "nome": "Hidrovias do Brasil S.A.",
+    "setor": "Bens Industriais",
+    "subsetor": "Transporte Hidroviário"
+  },
+  {
+    "ticker": "AALR3",
+    "nome": "Alliança Saúde e Participações S.A.",
+    "setor": "Saúde",
+    "subsetor": "Serviços Médicos"
+  },
+  {
+    "ticker": "LOGN3",
+    "nome": "Log-In Logística Intermodal S.A.",
+    "setor": "Bens Industriais",
+    "subsetor": "Logística"
+  },
+  {
+    "ticker": "ENEV3",
+    "nome": "Eneva S.A.",
+    "setor": "Utilidade Pública",
+    "subsetor": "Energia Elétrica"
+  },
+  {
+    "ticker": "VSTE3",
+    "nome": "Veste S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Vestuário"
+  },
+  {
+    "ticker": "VULC3",
+    "nome": "Vulcabras S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Calçados"
+  },
+  {
+    "ticker": "DASA3",
+    "nome": "Diagnósticos da América S.A.",
+    "setor": "Saúde",
+    "subsetor": "Serviços Médicos"
+  },
+  {
+    "ticker": "HAPV3",
+    "nome": "Hapvida Participações e Investimentos S.A.",
+    "setor": "Saúde",
+    "subsetor": "Planos de Saúde"
+  },
+  {
+    "ticker": "ALPA4",
+    "nome": "Alpargatas S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Calçados"
+  },
+  {
+    "ticker": "EVEN3",
+    "nome": "Even Construtora e Incorporadora S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Construção Civil"
+  },
+  {
+    "ticker": "CVCB3",
+    "nome": "CVC Brasil Operadora e Agência de Viagens S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Turismo"
+  },
+  {
+    "ticker": "PETZ3",
+    "nome": "Pet Center Comércio e Participações S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Produtos para Animais"
+  },
+  {
+    "ticker": "AURA33",
+    "nome": "Aura Minerals Inc.",
+    "setor": "Materiais Básicos",
+    "subsetor": "Mineração"
+  },
+  {
+    "ticker": "PCAR3",
+    "nome": "Companhia Brasileira de Distribuição",
+    "setor": "Consumo Não Cíclico",
+    "subsetor": "Varejo Alimentar"
+  },
+  {
+    "ticker": "GOLL4",
+    "nome": "Gol Linhas Aéreas Inteligentes S.A.",
+    "setor": "Bens Industriais",
+    "subsetor": "Transporte Aéreo"
+  },
+  {
+    "ticker": "GFSA3",
+    "nome": "Gafisa S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Construção Civil"
+  },
+  {
+    "ticker": "NTCO3",
+    "nome": "Natura &Co Holding S.A.",
+    "setor": "Consumo Não Cíclico",
+    "subsetor": "Produtos de Uso Pessoal"
+  },
+  {
+    "ticker": "BRKM5",
+    "nome": "Braskem S.A.",
+    "setor": "Materiais Básicos",
+    "subsetor": "Petroquímicos"
+  },
+  {
+    "ticker": "UNIP6",
+    "nome": "Unipar Carbocloro S.A.",
+    "setor": "Materiais Básicos",
+    "subsetor": "Químicos"
+  },
+  {
+    "ticker": "AMER3",
+    "nome": "Americanas S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Varejo"
+  },
+  {
+    "ticker": "BRSR6",
+    "nome": "Banco do Estado do Rio Grande do Sul S.A.",
+    "setor": "Financeiro",
+    "subsetor": "Bancos"
+  },
+  {
+    "ticker": "ANIM3",
+    "nome": "Ânima Holding S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Educação"
+  },
+  {
+    "ticker": "CSNA3",
+    "nome": "Companhia Siderúrgica Nacional",
+    "setor": "Materiais Básicos",
+    "subsetor": "Siderurgia"
+  },
+  {
+    "ticker": "MDIA3",
+    "nome": "M. Dias Branco S.A.",
+    "setor": "Consumo Não Cíclico",
+    "subsetor": "Alimentos"
+  },
+  {
+    "ticker": "TIMS3",
+    "nome": "TIM S.A.",
+    "setor": "Comunicações",
+    "subsetor": "Telecomunicações"
+  },
+  {
+    "ticker": "QUAL3",
+    "nome": "Qualicorp Consultoria e Corretora de Seguros S.A.",
+    "setor": "Saúde",
+    "subsetor": "Planos de Saúde"
+  },
+  {
+    "ticker": "UGPA3",
+    "nome": "Ultrapar Participações S.A.",
+    "setor": "Petróleo, Gás e Biocombustíveis",
+    "subsetor": "Distribuição"
+  },
+  {
+    "ticker": "ECOR3",
+    "nome": "EcoRodovias Infraestrutura e Logística S.A.",
+    "setor": "Bens Industriais",
+    "subsetor": "Exploração de Rodovias"
+  },
+  {
+    "ticker": "JHSF3",
+    "nome": "JHSF Participações S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Exploração Imobiliária"
+  },
+  {
+    "ticker": "CMIN3",
+    "nome": "CSN Mineração S.A.",
+    "setor": "Materiais Básicos",
+    "subsetor": "Mineração"
+  },
+  {
+    "ticker": "CURY3",
+    "nome": "Cury Construtora e Incorporadora S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Construção Civil"
+  },
+  {
+    "ticker": "BPAC11",
+    "nome": "Banco BTG Pactual S.A.",
+    "setor": "Financeiro",
+    "subsetor": "Bancos"
+  },
+  {
+    "ticker": "EQTL3",
+    "nome": "Equatorial Energia S.A.",
+    "setor": "Utilidade Pública",
+    "subsetor": "Energia Elétrica"
+  },
+  {
+    "ticker": "BEEF3",
+    "nome": "Minerva S.A.",
+    "setor": "Consumo Não Cíclico",
+    "subsetor": "Carnes e Derivados"
+  },
+  {
+    "ticker": "ABEV3",
+    "nome": "Ambev S.A.",
+    "setor": "Consumo Não Cíclico",
+    "subsetor": "Bebidas"
+  },
+  {
+    "ticker": "RADL3",
+    "nome": "Raia Drogasil S.A.",
+    "setor": "Saúde",
+    "subsetor": "Varejo Farmacêutico"
+  },
+  {
+    "ticker": "CYRE3",
+    "nome": "Cyrela Brazil Realty S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Construção Civil"
+  },
+  {
+    "ticker": "RDOR3",
+    "nome": "Rede D'Or São Luiz S.A.",
+    "setor": "Saúde",
+    "subsetor": "Hospitais"
+  },
+  {
+    "ticker": "HYPE3",
+    "nome": "Hypera S.A.",
+    "setor": "Saúde",
+    "subsetor": "Medicamentos"
+  },
+  {
+    "ticker": "IGTI11",
+    "nome": "Iguatemi S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Shopping Centers"
+  },
+  {
+    "ticker": "BBDC4",
+    "nome": "Banco Bradesco S.A.",
+    "setor": "Financeiro",
+    "subsetor": "Bancos"
+  },
+  {
+    "ticker": "ITUB4",
+    "nome": "Itaú Unibanco Holding S.A.",
+    "setor": "Financeiro",
+    "subsetor": "Bancos"
+  },
+  {
+    "ticker": "SANB11",
+    "nome": "Banco Santander (Brasil) S.A.",
+    "setor": "Financeiro",
+    "subsetor": "Bancos"
+  },
+  {
+    "ticker": "VIVT3",
+    "nome": "Telefônica Brasil S.A.",
+    "setor": "Comunicações",
+    "subsetor": "Telecomunicações"
+  },
+  {
+    "ticker": "PSSA3",
+    "nome": "Porto Seguro S.A.",
+    "setor": "Financeiro",
+    "subsetor": "Seguros"
+  },
+  {
+    "ticker": "ITSA4",
+    "nome": "Itaúsa S.A.",
+    "setor": "Financeiro",
+    "subsetor": "Holdings Financeiras"
+  },
+  {
+    "ticker": "LREN3",
+    "nome": "Lojas Renner S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Varejo"
+  },
+  {
+    "ticker": "VALE3",
+    "nome": "Vale S.A.",
+    "setor": "Materiais Básicos",
+    "subsetor": "Mineração"
+  },
+  {
+    "ticker": "MRFG3",
+    "nome": "Marfrig Global Foods S.A.",
+    "setor": "Consumo Não Cíclico",
+    "subsetor": "Carnes e Derivados"
+  },
+  {
+    "ticker": "STBP3",
+    "nome": "Santos Brasil Participações S.A.",
+    "setor": "Bens Industriais",
+    "subsetor": "Serviços Portuários"
+  },
+  {
+    "ticker": "WEGE3",
+    "nome": "WEG S.A.",
+    "setor": "Bens Industriais",
+    "subsetor": "Máquinas e Equipamentos"
+  },
+  {
+    "ticker": "EGIE3",
+    "nome": "Engie Brasil Energia S.A.",
+    "setor": "Utilidade Pública",
+    "subsetor": "Energia Elétrica"
+  },
+  {
+    "ticker": "BBSE3",
+    "nome": "BB Seguridade Participações S.A.",
+    "setor": "Financeiro",
+    "subsetor": "Seguros"
+  },
+  {
+    "ticker": "B3SA3",
+    "nome": "B3 S.A. - Brasil, Bolsa, Balcão",
+    "setor": "Financeiro",
+    "subsetor": "Serviços Financeiros"
+  },
+  {
+    "ticker": "CPFE3",
+    "nome": "CPFL Energia S.A.",
+    "setor": "Utilidade Pública",
+    "subsetor": "Energia Elétrica"
+  },
+  {
+    "ticker": "PETR4",
+    "nome": "Petróleo Brasileiro S.A. - Petrobras",
+    "setor": "Petróleo, Gás e Biocombustíveis",
+    "subsetor": "Exploração, Refino e Distribuição"
+  },
+  {
+    "ticker": "POMO4",
+    "nome": "Marcopolo S.A.",
+    "setor": "Bens Industriais",
+    "subsetor": "Material Rodoviário"
+  },
+  {
+    "ticker": "CSMG3",
+    "nome": "Companhia de Saneamento de Minas Gerais",
+    "setor": "Utilidade Pública",
+    "subsetor": "Saneamento"
+  },
+  {
+    "ticker": "ASAI3",
+    "nome": "Assaí Atacadista",
+    "setor": "Consumo Não Cíclico",
+    "subsetor": "Varejo Alimentar"
+  },
+  {
+    "ticker": "FLRY3",
+    "nome": "Fleury S.A.",
+    "setor": "Saúde",
+    "subsetor": "Serviços Médicos"
+  },
+  {
+    "ticker": "SMTO3",
+    "nome": "São Martinho S.A.",
+    "setor": "Consumo Não Cíclico",
+    "subsetor": "Açúcar e Álcool"
+  },
+  {
+    "ticker": "MOVI3",
+    "nome": "Movida Participações S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Aluguel de Veículos"
+  },
+  {
+    "ticker": "KEPL3",
+    "nome": "Kepler Weber S.A.",
+    "setor": "Bens Industriais",
+    "subsetor": "Máquinas e Equipamentos"
+  },
+  {
+    "ticker": "TOTS3",
+    "nome": "TOTVS S.A.",
+    "setor": "Tecnologia da Informação",
+    "subsetor": "Software"
+  },
+  {
+    "ticker": "GOAU4",
+    "nome": "Metalúrgica Gerdau S.A.",
+    "setor": "Materiais Básicos",
+    "subsetor": "Siderurgia"
+  },
+  {
+    "ticker": "TAEE11",
+    "nome": "Transmissora Aliança de Energia Elétrica S.A.",
+    "setor": "Utilidade Pública",
+    "subsetor": "Energia Elétrica"
+  },
+  {
+    "ticker": "MGLU3",
+    "nome": "Magazine Luiza S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Varejo"
+  },
+  {
+    "ticker": "GGBR4",
+    "nome": "Gerdau S.A.",
+    "setor": "Materiais Básicos",
+    "subsetor": "Siderurgia"
+  },
+  {
+    "ticker": "ENGI11",
+    "nome": "Energisa S.A.",
+    "setor": "Utilidade Pública",
+    "subsetor": "Energia Elétrica"
+  },
+  {
+    "ticker": "MULT3",
+    "nome": "Multiplan Empreendimentos Imobiliários S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Shopping Centers"
+  },
+  {
+    "ticker": "JBSS3",
+    "nome": "JBS S.A.",
+    "setor": "Consumo Não Cíclico",
+    "subsetor": "Carnes e Derivados"
+  },
+  {
+    "ticker": "BRFS3",
+    "nome": "BRF S.A.",
+    "setor": "Consumo Não Cíclico",
+    "subsetor": "Alimentos Processados"
+  },
+  {
+    "ticker": "KLBN11",
+    "nome": "Klabin S.A.",
+    "setor": "Materiais Básicos",
+    "subsetor": "Papel e Celulose"
+  },
+  {
+    "ticker": "SAPR4",
+    "nome": "Companhia de Saneamento do Paraná",
+    "setor": "Utilidade Pública",
+    "subsetor": "Saneamento"
+  },
+  {
+    "ticker": "YDUQ3",
+    "nome": "YDUQS Participações S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Educação"
+  },
+  {
+    "ticker": "SUZB3",
+    "nome": "Suzano S.A.",
+    "setor": "Materiais Básicos",
+    "subsetor": "Papel e Celulose"
+  },
+  {
+    "ticker": "RAIL3",
+    "nome": "Rumo S.A.",
+    "setor": "Bens Industriais",
+    "subsetor": "Logística"
+  },
+  {
+    "ticker": "CPLE6",
+    "nome": "Copel",
+    "setor": "Utilidade Pública",
+    "subsetor": "Energia Elétrica"
+  },
+  {
+    "ticker": "EMBR3",
+    "nome": "Embraer S.A.",
+    "setor": "Bens Industriais",
+    "subsetor": "Material Aeronáutico"
+  },
+  {
+    "ticker": "PRIO3",
+    "nome": "PRIO S.A.",
+    "setor": "Petróleo, Gás e Biocombustíveis",
+    "subsetor": "Exploração e Produção"
+  },
+  {
+    "ticker": "SBSP3",
+    "nome": "Companhia de Saneamento Básico do Estado de São Paulo",
+    "setor": "Utilidade Pública",
+    "subsetor": "Saneamento"
+  },
+  {
+    "ticker": "BBAS3",
+    "nome": "Banco do Brasil S.A.",
+    "setor": "Financeiro",
+    "subsetor": "Bancos"
+  },
+  {
+    "ticker": "CMIG4",
+    "nome": "Companhia Energética de Minas Gerais",
+    "setor": "Utilidade Pública",
+    "subsetor": "Energia Elétrica"
+  },
+  {
+    "ticker": "CRFB3",
+    "nome": "Carrefour Brasil",
+    "setor": "Consumo Não Cíclico",
+    "subsetor": "Varejo Alimentar"
+  },
+  {
+    "ticker": "DXCO3",
+    "nome": "Dexco S.A.",
+    "setor": "Materiais Básicos",
+    "subsetor": "Madeira"
+  },
+  {
+    "ticker": "VBBR3",
+    "nome": "Vibra Energia S.A.",
+    "setor": "Petróleo, Gás e Biocombustíveis",
+    "subsetor": "Distribuição"
+  },
+  {
+    "ticker": "IRBR3",
+    "nome": "IRB Brasil RE",
+    "setor": "Financeiro",
+    "subsetor": "Seguros"
+  },
+  {
+    "ticker": "RENT3",
+    "nome": "Localiza Rent a Car S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Aluguel de Veículos"
+  },
+  {
+    "ticker": "AGRO3",
+    "nome": "BrasilAgro S.A.",
+    "setor": "Consumo Não Cíclico",
+    "subsetor": "Agropecuária"
+  },
+  {
+    "ticker": "ELET3",
+    "nome": "Eletrobras S.A.",
+    "setor": "Utilidade Pública",
+    "subsetor": "Energia Elétrica"
+  },
+  {
+    "ticker": "TUPY3",
+    "nome": "Tupy S.A.",
+    "setor": "Bens Industriais",
+    "subsetor": "Automotivo"
+  },
+  {
+    "ticker": "CSAN3",
+    "nome": "Cosan S.A.",
+    "setor": "Petróleo, Gás e Biocombustíveis",
+    "subsetor": "Distribuição"
+  },
+  {
+    "ticker": "AMBP3",
+    "nome": "Ambipar Participações e Empreendimentos S.A.",
+    "setor": "Utilidade Pública",
+    "subsetor": "Serviços Ambientais"
+  },
+  {
+    "ticker": "SLCE3",
+    "nome": "SLC Agrícola S.A.",
+    "setor": "Consumo Não Cíclico",
+    "subsetor": "Agropecuária"
+  },
+  {
+    "ticker": "LWSA3",
+    "nome": "LWSA S.A.",
+    "setor": "Tecnologia da Informação",
+    "subsetor": "Serviços de TI"
+  },
+  {
+    "ticker": "USIM5",
+    "nome": "Usinas Siderúrgicas de Minas Gerais S.A.",
+    "setor": "Materiais Básicos",
+    "subsetor": "Siderurgia"
+  },
+  {
+    "ticker": "SIMH3",
+    "nome": "Simpar S.A.",
+    "setor": "Bens Industriais",
+    "subsetor": "Logística"
+  },
+  {
+    "ticker": "BHIA3",
+    "nome": "Grupo Casas Bahia S.A.",
+    "setor": "Consumo Cíclico",
+    "subsetor": "Varejo"
+  },
+  {
+    "ticker": "ONCO3",
+    "nome": "Oncoclínicas do Brasil Serviços Médicos S.A.",
+    "setor": "Saúde",
+    "subsetor": "Serviços Médicos"
+  }
+]

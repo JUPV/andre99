@@ -1,0 +1,539 @@
+{
+  "total": 106,
+  "cadastradas": 0,
+  "jaExistiam": 106,
+  "coletadas": 0,
+  "erros": 0,
+  "detalhes": [
+    {
+      "ticker": "MNPR3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "SEER3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "AZUL4",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "MRVE3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "COGN3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "EMAE4",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "ALPK3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "HBSA3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "AALR3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "LOGN3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "ENEV3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "VSTE3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "VULC3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "DASA3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "HAPV3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "ALPA4",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "EVEN3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "CVCB3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "PETZ3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "AURA33",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "PCAR3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "GOLL4",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "GFSA3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "NTCO3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "BRKM5",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "UNIP6",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "AMER3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "BRSR6",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "ANIM3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "CSNA3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "MDIA3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "TIMS3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "QUAL3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "UGPA3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "ECOR3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "JHSF3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "CMIN3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "CURY3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "BPAC11",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "EQTL3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "BEEF3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "ABEV3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "RADL3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "CYRE3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "RDOR3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "HYPE3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "IGTI11",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "BBDC4",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "ITUB4",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "SANB11",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "VIVT3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "PSSA3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "ITSA4",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "LREN3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "VALE3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "MRFG3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "STBP3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "WEGE3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "EGIE3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "BBSE3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "B3SA3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "CPFE3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "PETR4",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "POMO4",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "CSMG3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "ASAI3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "FLRY3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "SMTO3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "MOVI3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "KEPL3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "TOTS3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "GOAU4",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "TAEE11",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "MGLU3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "GGBR4",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "ENGI11",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "MULT3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "JBSS3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "BRFS3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "KLBN11",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "SAPR4",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "YDUQ3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "SUZB3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "RAIL3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "CPLE6",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "EMBR3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "PRIO3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "SBSP3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "BBAS3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "CMIG4",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "CRFB3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "DXCO3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "VBBR3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "IRBR3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "RENT3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "AGRO3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "ELET3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "TUPY3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "CSAN3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "AMBP3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "SLCE3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "LWSA3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "USIM5",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "SIMH3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "BHIA3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    },
+    {
+      "ticker": "ONCO3",
+      "status": "ja_existia",
+      "mensagem": "Empresa já cadastrada"
+    }
+  ]
+}

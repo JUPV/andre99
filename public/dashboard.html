@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Fundamentus Analytics</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">📈</div>
+        <div class="sidebar-title">Fundamentus</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">Principal</div>
+          <a href="dashboard.html" class="nav-item active">
+            <span class="nav-icon">📊</span>
+            <span>Dashboard</span>
+          </a>
+          <a href="empresas.html" class="nav-item">
+            <span class="nav-icon">🏢</span>
+            <span>Empresas</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Gerenciamento</div>
+          <a href="cadastro.html" class="nav-item">
+            <span class="nav-icon">➕</span>
+            <span>Nova Empresa</span>
+          </a>
+          <a href="status-coletas.html" class="nav-item">
+            <span class="nav-icon">🔄</span>
+            <span>Status Coletas</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Análise</div>
+          <a href="comparativo.html" class="nav-item">
+            <span class="nav-icon">📈</span>
+            <span>Comparativos</span>
+          </a>
+          <a href="#" class="nav-item" onclick="alert('Em breve!'); return false;">
+            <span class="nav-icon">📑</span>
+            <span>Relatórios</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar">A</div>
+          <div class="user-details">
+            <div class="user-name">André</div>
+            <div class="user-role">Administrador</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+      <div class="topbar">
+        <div class="topbar-left">
+          <h1 class="page-title">Dashboard</h1>
+        </div>
+        <div class="topbar-right">
+          <button class="topbar-btn" onclick="carregarDados()">
+            <span>🔄</span>
+            <span>Atualizar</span>
+          </button>
+          <button class="topbar-btn primary" onclick="window.location.href='cadastro.html'">
+            <span>➕</span>
+            <span>Nova Empresa</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="content-area">
+        <!-- CARDS DE ESTATÍSTICAS -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <div>
+                <div class="stat-label">Total de Empresas</div>
+                <div class="stat-value" id="totalEmpresas">0</div>
+              </div>
+              <div class="stat-icon">🏢</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div>
+                <div class="stat-label">Dados Atualizados</div>
+                <div class="stat-value" id="empresasAtualizadas">0</div>
+              </div>
+              <div class="stat-icon success">✅</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div>
+                <div class="stat-label">Crescimento Médio</div>
+                <div class="stat-value" id="crescimentoMedio">0%</div>
+                <div class="stat-change positive" id="crescimentoChange" style="display: none;">
+                  <span>↑</span>
+                  <span>0%</span>
+                </div>
+              </div>
+              <div class="stat-icon warning">📊</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div>
+                <div class="stat-label">Última Atualização</div>
+                <div class="stat-value" style="font-size: 1rem;" id="ultimaAtualizacao">-</div>
+              </div>
+              <div class="stat-icon">⏰</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GRÁFICOS -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+          <div class="chart-container">
+            <div class="chart-header">
+              <div class="chart-title">📈 Evolução de Receita (Top 10)</div>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="receitaChart"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-container">
+            <div class="chart-header">
+              <div class="chart-title">💰 Evolução de Lucro (Top 10)</div>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="lucroChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- FILTROS -->
+        <div class="filters-section">
+          <div class="filters-grid">
+            <div class="filter-group">
+              <label class="filter-label">🔍 Buscar</label>
+              <input type="text" class="filter-input" id="searchInput" placeholder="Digite o código ou nome..."
+                oninput="filtrarDados()">
+            </div>
+            <div class="filter-group">
+              <label class="filter-label">🏭 Setor</label>
+              <select class="filter-select" id="setorFilter" onchange="filtrarDados()">
+                <option value="">Todos os setores</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label class="filter-label">📊 Status</label>
+              <select class="filter-select" id="statusFilter" onchange="filtrarDados()">
+                <option value="">Todos</option>
+                <option value="online">✅ Online</option>
+                <option value="pending">⏳ Pendente</option>
+                <option value="offline">❌ Sem Dados</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label class="filter-label">⬇️ Ordenar</label>
+              <select class="filter-select" id="sortBy" onchange="ordenarDados()">
+                <option value="codigo">Código (A-Z)</option>
+                <option value="crescimento">Crescimento %</option>
+                <option value="receita">Receita</option>
+                <option value="lucro">Lucro</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABELA -->
+        <div class="table-container">
+          <div class="table-header">
+            <div class="table-title">📋 Análise Trimestral Comparativa</div>
+            <div id="resultadosInfo" style="font-size: 0.875rem; color: var(--text-muted);"></div>
+          </div>
+          <div class="table-wrapper">
+            <div id="loadingState" class="loading-container">
+              <div class="spinner"></div>
+              <div>Carregando dados...</div>
+            </div>
+            <div id="emptyState" style="display: none; padding: 3rem; text-align: center; color: var(--text-muted);">
+              <div style="font-size: 3rem; margin-bottom: 1rem;">📭</div>
+              <div>Nenhuma empresa encontrada</div>
+            </div>
+            <table id="dataTable" style="display: none;">
+              <thead>
+                <tr>
+                  <th>Empresa</th>
+                  <th>Status</th>
+                  <th>Trimestre</th>
+                  <th class="text-right">Receita Atual</th>
+                  <th class="text-right">Receita Anterior</th>
+                  <th class="text-right">Var %</th>
+                  <th class="text-right">Lucro Atual</th>
+                  <th class="text-right">Lucro Anterior</th>
+                  <th class="text-right">Var %</th>
+                  <th class="text-right">P/L</th>
+                  <th class="text-right">EV/EBITDA</th>
+                  <th class="text-center">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+
+</html>

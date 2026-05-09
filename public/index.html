@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fundamentus Scraper - Visualização de Dados</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #667eea;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    .section {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      color: #667eea;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .controls {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    input,
+    select,
+    button {
+      padding: 12px 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    button {
+      background: #667eea;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button:hover {
+      background: #5568d3;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button.secondary {
+      background: #48bb78;
+    }
+
+    button.secondary:hover {
+      background: #38a169;
+    }
+
+    button.danger {
+      background: #f56565;
+    }
+
+    button.danger:hover {
+      background: #e53e3e;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100px;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transform: translate(30%, -30%);
+    }
+
+    .card-code {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .card-name {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 10px;
+    }
+
+    .card-price {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .data-table th {
+      background: #f8f9fa;
+      font-weight: 600;
+      color: #667eea;
+    }
+
+    .data-table tr:hover {
+      background: #f8f9fa;
+    }
+
+    .data-table td.number {
+      text-align: right;
+      font-family: 'Courier New', monospace;
+    }
+
+    .positive {
+      color: #48bb78;
+    }
+
+    .negative {
+      color: #f56565;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .metric {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+
+    .metric-label {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 5px;
+    }
+
+    .metric-value {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .form-group input {
+      width: 100%;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      font-size: 1.5rem;
+      color: #667eea;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: flex-end;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #667eea;
+      font-size: 1.2rem;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #999;
+    }
+
+    .empty-state svg {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .controls {
+        flex-direction: column;
+      }
+
+      .controls input,
+      .controls select,
+      .controls button {
+        width: 100%;
+      }
+
+      .metric-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>📊 Fundamentus Scraper</h1>
+      <p class="subtitle">Sistema de coleta e visualização de dados financeiros</p>
+    </header>
+
+    <!-- Seção de Controles -->
+    <div class="section">
+      <div class="controls">
+        <input type="text" id="codigoInput" placeholder="Digite o código (ex: PETR4)" />
+        <button onclick="app.buscarEmpresa()">🔍 Buscar</button>
+        <button class="secondary" onclick="window.location.href='/dashboard.html'">📊 Dashboard</button>
+        <button class="secondary" onclick="window.location.href='/status-coletas.html'">📡 Status Coletas</button>
+        <button class="secondary" onclick="window.location.href='/cadastro.html'">➕ Nova Empresa</button>
+        <button class="secondary" onclick="app.carregarEmpresas()">🔄 Atualizar</button>
+      </div>
+    </div>
+
+    <!-- Lista de Empresas -->
+    <div class="section">
+      <h2 class="section-title">Empresas Cadastradas</h2>
+      <div id="empresasList" class="card-grid">
+        <div class="loading">Carregando empresas...</div>
+      </div>
+    </div>
+
+    <!-- Detalhes da Empresa -->
+    <div id="detalhesSection" class="section" style="display: none;">
+      <h2 class="section-title">Detalhes - <span id="detalhesNome"></span></h2>
+
+      <!-- Métricas Principais -->
+      <div id="metricas" class="metric-grid"></div>
+
+      <!-- Dados Trimestrais -->
+      <h3 style="margin-top: 30px; margin-bottom: 15px; color: #667eea;">📈 Dados Trimestrais</h3>
+      <div style="overflow-x: auto;">
+        <table id="trimestraisTable" class="data-table"></table>
+      </div>
+
+      <!-- Dados Diários -->
+      <h3 style="margin-top: 30px; margin-bottom: 15px; color: #667eea;">📅 Histórico Diário</h3>
+      <div style="overflow-x: auto;">
+        <table id="diariosTable" class="data-table"></table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Nova Empresa -->
+  <div id="modalNovaEmpresa" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">Nova Empresa</div>
+      <form id="formNovaEmpresa" onsubmit="app.salvarNovaEmpresa(event)">
+        <div class="form-group">
+          <label>Código *</label>
+          <input type="text" id="novoCodigo" required placeholder="PETR4" />
+        </div>
+        <div class="form-group">
+          <label>Nome *</label>
+          <input type="text" id="novoNome" required placeholder="PETROBRAS PN" />
+        </div>
+        <div class="form-group">
+          <label>Setor</label>
+          <input type="text" id="novoSetor" placeholder="Petróleo, Gás e Biocombustíveis" />
+        </div>
+        <div class="form-group">
+          <label>Subsetor</label>
+          <input type="text" id="novoSubsetor" placeholder="Exploração, Refino e Distribuição" />
+        </div>
+        <div class="modal-actions">
+          <button type="button" onclick="app.fecharModal()">Cancelar</button>
+          <button type="submit" class="secondary">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Empresas - Fundamentus Analytics</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">📈</div>
+        <div class="sidebar-title">Fundamentus</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">Principal</div>
+          <a href="dashboard.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span>Dashboard</span>
+          </a>
+          <a href="empresas.html" class="nav-item active">
+            <span class="nav-icon">🏢</span>
+            <span>Empresas</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Gerenciamento</div>
+          <a href="cadastro.html" class="nav-item">
+            <span class="nav-icon">➕</span>
+            <span>Nova Empresa</span>
+          </a>
+          <a href="status-coletas.html" class="nav-item">
+            <span class="nav-icon">🔄</span>
+            <span>Status Coletas</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Análise</div>
+          <a href="comparativo.html" class="nav-item">
+            <span class="nav-icon">📈</span>
+            <span>Comparativos</span>
+          </a>
+          <a href="#" class="nav-item" onclick="alert('Em breve!'); return false;">
+            <span class="nav-icon">📑</span>
+            <span>Relatórios</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar">A</div>
+          <div class="user-details">
+            <div class="user-name">André</div>
+            <div class="user-role">Administrador</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+      <div class="topbar">
+        <div class="topbar-left">
+          <h1 class="page-title">Empresas</h1>
+        </div>
+        <div class="topbar-right">
+          <button class="topbar-btn" onclick="carregarEmpresas()">
+            <span>🔄</span>
+            <span>Atualizar</span>
+          </button>
+          <button class="topbar-btn primary" onclick="window.location.href='cadastro.html'">
+            <span>➕</span>
+            <span>Nova Empresa</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="content-area">
+        <!-- STATS -->
+        <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+          <div class="stat-card">
+            <div class="stat-header">
+              <div>
+                <div class="stat-label">Total</div>
+                <div class="stat-value" id="totalEmpresas">0</div>
+              </div>
+              <div class="stat-icon">🏢</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div>
+                <div class="stat-label">Ativas</div>
+                <div class="stat-value" id="empresasAtivas">0</div>
+              </div>
+              <div class="stat-icon success">✅</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div>
+                <div class="stat-label">Inativas</div>
+                <div class="stat-value" id="empresasInativas">0</div>
+              </div>
+              <div class="stat-icon warning">⏸️</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FILTROS -->
+        <div class="filters-section">
+          <div class="filters-grid">
+            <div class="filter-group">
+              <label class="filter-label">🔍 Buscar</label>
+              <input type="text" class="filter-input" id="searchInput" placeholder="Digite o código ou nome..."
+                oninput="filtrarEmpresas()">
+            </div>
+            <div class="filter-group">
+              <label class="filter-label">🏭 Setor</label>
+              <select class="filter-select" id="setorFilter" onchange="filtrarEmpresas()">
+                <option value="">Todos os setores</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label class="filter-label">📊 Status</label>
+              <select class="filter-select" id="statusFilter" onchange="filtrarEmpresas()">
+                <option value="">Todos</option>
+                <option value="ativo">✅ Ativas</option>
+                <option value="inativo">⏸️ Inativas</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label class="filter-label">⬇️ Ordenar</label>
+              <select class="filter-select" id="sortBy" onchange="ordenarEmpresas()">
+                <option value="codigo">Código (A-Z)</option>
+                <option value="nome">Nome (A-Z)</option>
+                <option value="setor">Setor</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABELA -->
+        <div class="table-container">
+          <div class="table-header">
+            <div class="table-title">📋 Lista de Empresas</div>
+            <div id="resultadosInfo" style="font-size: 0.875rem; color: var(--text-muted);"></div>
+          </div>
+          <div class="table-wrapper">
+            <div id="loadingState" class="loading-container">
+              <div class="spinner"></div>
+              <div>Carregando empresas...</div>
+            </div>
+            <div id="emptyState" style="display: none; padding: 3rem; text-align: center; color: var(--text-muted);">
+              <div style="font-size: 3rem; margin-bottom: 1rem;">📭</div>
+              <div>Nenhuma empresa cadastrada</div>
+              <button class="btn btn-primary mt-3" onclick="window.location.href='cadastro.html'">➕ Cadastrar Primeira
+                Empresa</button>
+            </div>
+            <table id="dataTable" style="display: none;">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Nome</th>
+                  <th>Setor</th>
+                  <th>Subsetor</th>
+                  <th>Status</th>
+                  <th>Cadastrado Em</th>
+                  <th class="text-center">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    let empresasOriginais = [];
+    let empresasFiltradas = [];
+
+    document.addEventListener('DOMContentLoaded', carregarEmpresas);
+
+    async function carregarEmpresas() {
+      try {
+        mostrarLoading(true);
+        const response = await fetch('/api/empresas');
+        const empresas = await response.json();
+
+        empresasOriginais = empresas;
+        empresasFiltradas = [...empresas];
+
+        atualizarStats();
+        popularFiltros();
+        renderizarTabela();
+        mostrarLoading(false);
+      } catch (error) {
+        console.error('Erro ao carregar empresas:', error);
+        alert('Erro ao carregar empresas');
+      }
+    }
+
+    function atualizarStats() {
+      const total = empresasOriginais.length;
+      const ativas = empresasOriginais.filter(e => e.ativo).length;
+      const inativas = total - ativas;
+
+      document.getElementById('totalEmpresas').textContent = total;
+      document.getElementById('empresasAtivas').textContent = ativas;
+      document.getElementById('empresasInativas').textContent = inativas;
+    }
+
+    function popularFiltros() {
+      const setores = [...new Set(empresasOriginais.map(e => e.setor).filter(Boolean))];
+      const setorFilter = document.getElementById('setorFilter');
+      setorFilter.innerHTML = '<option value="">Todos os setores</option>';
+
+      setores.forEach(setor => {
+        const option = document.createElement('option');
+        option.value = setor;
+        option.textContent = setor;
+        setorFilter.appendChild(option);
+      });
+    }
+
+    function filtrarEmpresas() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const setorFilter = document.getElementById('setorFilter').value;
+      const statusFilter = document.getElementById('statusFilter').value;
+
+      empresasFiltradas = empresasOriginais.filter(empresa => {
+        const matchSearch = !search ||
+          empresa.codigo.toLowerCase().includes(search) ||
+          empresa.nome.toLowerCase().includes(search);
+
+        const matchSetor = !setorFilter || empresa.setor === setorFilter;
+
+        const matchStatus = !statusFilter ||
+          (statusFilter === 'ativo' && empresa.ativo) ||
+          (statusFilter === 'inativo' && !empresa.ativo);
+
+        return matchSearch && matchSetor && matchStatus;
+      });
+
+      ordenarEmpresas();
+    }
+
+    function ordenarEmpresas() {
+      const sortBy = document.getElementById('sortBy').value;
+
+      empresasFiltradas.sort((a, b) => {
+        switch (sortBy) {
+          case 'nome':
+            return a.nome.localeCompare(b.nome);
+          case 'setor':
+            return (a.setor || '').localeCompare(b.setor || '');
+          default: // codigo
+            return a.codigo.localeCompare(b.codigo);
+        }
+      });
+
+      renderizarTabela();
+    }
+
+    function renderizarTabela() {
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+
+      const info = document.getElementById('resultadosInfo');
+      info.textContent = `Mostrando ${empresasFiltradas.length} de ${empresasOriginais.length} empresas`;
+
+      if (empresasFiltradas.length === 0) {
+        document.getElementById('emptyState').style.display = 'block';
+        document.getElementById('dataTable').style.display = 'none';
+        return;
+      }
+
+      document.getElementById('emptyState').style.display = 'none';
+      document.getElementById('dataTable').style.display = 'table';
+
+      empresasFiltradas.forEach(empresa => {
+        const tr = document.createElement('tr');
+        tr.className = 'fade-in';
+
+        const statusBadge = empresa.ativo
+          ? '<span class="badge success">✅ Ativa</span>'
+          : '<span class="badge neutral">⏸️ Inativa</span>';
+
+        tr.innerHTML = `
+          <td style="font-weight: 600; color: var(--text-primary);">${empresa.codigo}</td>
+          <td>${empresa.nome}</td>
+          <td>${empresa.setor || '-'}</td>
+          <td>${empresa.subsetor || '-'}</td>
+          <td>${statusBadge}</td>
+          <td>${formatarData(empresa.criadoEm)}</td>
+          <td class="text-center">
+            <div class="btn-group">
+              <button class="btn btn-small btn-outline" onclick="verDetalhes('${empresa.codigo}')" title="Ver detalhes">
+                👁️
+              </button>
+              <button class="btn btn-small btn-outline" onclick="editarEmpresa('${empresa.codigo}')" title="Editar">
+                ✏️
+              </button>
+              <button class="btn btn-small btn-outline" onclick="toggleAtivo('${empresa.codigo}', ${empresa.ativo})" title="${empresa.ativo ? 'Desativar' : 'Ativar'}">
+                ${empresa.ativo ? '⏸️' : '▶️'}
+              </button>
+              <button class="btn btn-small btn-danger" onclick="deletarEmpresa('${empresa.codigo}')" title="Excluir">
+                🗑️
+              </button>
+            </div>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    function verDetalhes(codigo) {
+      window.location.href = `empresa-detalhes.html?codigo=${codigo}`;
+    }
+
+    function editarEmpresa(codigo) {
+      window.location.href = `cadastro.html?codigo=${codigo}`;
+    }
+
+    async function toggleAtivo(codigo, ativoAtual) {
+      const acao = ativoAtual ? 'desativar' : 'ativar';
+      if (!confirm(`Deseja ${acao} a empresa ${codigo}?`)) return;
+
+      try {
+        const response = await fetch(`/api/empresas/${codigo}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ativo: !ativoAtual })
+        });
+
+        if (!response.ok) throw new Error('Erro ao atualizar');
+
+        alert(`Empresa ${ativoAtual ? 'desativada' : 'ativada'} com sucesso!`);
+        carregarEmpresas();
+      } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao atualizar empresa');
+      }
+    }
+
+    async function deletarEmpresa(codigo) {
+      if (!confirm(`⚠️ ATENÇÃO: Deseja realmente EXCLUIR a empresa ${codigo}?\n\nTodos os dados (trimestrais, diários e logs) serão permanentemente removidos.`)) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/empresas/${codigo}`, {
+          method: 'DELETE'
+        });
+
+        if (!response.ok) throw new Error('Erro ao excluir');
+
+        alert('Empresa excluída com sucesso!');
+        carregarEmpresas();
+      } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao excluir empresa');
+      }
+    }
+
+    function formatarData(dataStr) {
+      if (!dataStr) return '-';
+      const data = new Date(dataStr);
+      return data.toLocaleDateString('pt-BR');
+    }
+
+    function mostrarLoading(show) {
+      document.getElementById('loadingState').style.display = show ? 'flex' : 'none';
+      document.getElementById('dataTable').style.display = show ? 'none' : 'table';
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Status das Coletas - Fundamentus Analytics</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">📈</div>
+        <div class="sidebar-title">Fundamentus</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">Principal</div>
+          <a href="dashboard.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span>Dashboard</span>
+          </a>
+          <a href="empresas.html" class="nav-item">
+            <span class="nav-icon">🏢</span>
+            <span>Empresas</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Gerenciamento</div>
+          <a href="cadastro.html" class="nav-item">
+            <span class="nav-icon">➕</span>
+            <span>Nova Empresa</span>
+          </a>
+          <a href="status-coletas.html" class="nav-item active">
+            <span class="nav-icon">🔄</span>
+            <span>Status Coletas</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Análise</div>
+          <a href="comparativo.html" class="nav-item">
+            <span class="nav-icon">📈</span>
+            <span>Comparativos</span>
+          </a>
+          <a href="#" class="nav-item" onclick="alert('Em breve!'); return false;">
+            <span class="nav-icon">📑</span>
+            <span>Relatórios</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar">A</div>
+          <div class="user-details">
+            <div class="user-name">André</div>
+            <div class="user-role">Administrador</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+      <div class="topbar">
+        <div class="topbar-left">
+          <h1 class="page-title">Status das Coletas</h1>
+        </div>
+        <div class="topbar-right">
+          <button class="topbar-btn" onclick="carregarLogs()">
+            <span>🔄</span>
+            <span>Atualizar</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="content-area">
+        <!-- FILTROS -->
+        <div class="filters-section">
+          <div class="filters-grid">
+            <div class="filter-group">
+              <label class="filter-label">🔍 Buscar</label>
+              <input type="text" class="filter-input" id="searchInput" placeholder="Digite o código da empresa..."
+                oninput="filtrarLogs()">
+            </div>
+            <div class="filter-group">
+              <label class="filter-label">📊 Status</label>
+              <select class="filter-select" id="statusFilter" onchange="filtrarLogs()">
+                <option value="">Todos</option>
+                <option value="success">✅ Sucesso</option>
+                <option value="pending">⏳ Pendente</option>
+                <option value="error">❌ Erro</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label class="filter-label">📁 Tipo</label>
+              <select class="filter-select" id="tipoFilter" onchange="filtrarLogs()">
+                <option value="">Todos</option>
+                <option value="diario">📅 Diário</option>
+                <option value="trimestral">📈 Trimestral</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label class="filter-label">⬇️ Ordenar</label>
+              <select class="filter-select" id="sortBy" onchange="ordenarLogs()">
+                <option value="data">Mais Recentes</option>
+                <option value="empresa">Empresa (A-Z)</option>
+                <option value="status">Status</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- TIMELINE DE LOGS -->
+        <div class="table-container">
+          <div class="table-header">
+            <div class="table-title">📋 Histórico de Coletas</div>
+            <div id="resultadosInfo" style="font-size: 0.875rem; color: var(--text-muted);"></div>
+          </div>
+
+          <div id="loadingState" class="loading-container">
+            <div class="spinner"></div>
+            <div>Carregando logs...</div>
+          </div>
+
+          <div id="emptyState" style="display: none; padding: 3rem; text-align: center; color: var(--text-muted);">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">📭</div>
+            <div>Nenhum log encontrado</div>
+          </div>
+
+          <div id="timelineContainer" style="display: none; padding: 2rem;">
+            <div class="timeline" id="timeline"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    let logsOriginais = [];
+    let logsFiltrados = [];
+
+    document.addEventListener('DOMContentLoaded', carregarLogs);
+
+    async function carregarLogs() {
+      try {
+        mostrarLoading(true);
+        const response = await fetch('/api/coleta/logs-detalhados');
+        const logs = await response.json();
+
+        logsOriginais = logs;
+        logsFiltrados = [...logs];
+
+        renderizarTimeline();
+        mostrarLoading(false);
+      } catch (error) {
+        console.error('Erro ao carregar logs:', error);
+        alert('Erro ao carregar logs');
+      }
+    }
+
+    function filtrarLogs() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const statusFilter = document.getElementById('statusFilter').value;
+      const tipoFilter = document.getElementById('tipoFilter').value;
+
+      logsFiltrados = logsOriginais.filter(log => {
+        const matchSearch = !search || log.empresa?.codigo.toLowerCase().includes(search);
+        const matchStatus = !statusFilter || log.status === statusFilter;
+        const matchTipo = !tipoFilter || log.tipoColeta === tipoFilter;
+
+        return matchSearch && matchStatus && matchTipo;
+      });
+
+      ordenarLogs();
+    }
+
+    function ordenarLogs() {
+      const sortBy = document.getElementById('sortBy').value;
+
+      logsFiltrados.sort((a, b) => {
+        switch (sortBy) {
+          case 'empresa':
+            return (a.empresa?.codigo || '').localeCompare(b.empresa?.codigo || '');
+          case 'status':
+            return (a.status || '').localeCompare(b.status || '');
+          default: // data
+            return new Date(b.tentativaEm) - new Date(a.tentativaEm);
+        }
+      });
+
+      renderizarTimeline();
+    }
+
+    function renderizarTimeline() {
+      const timeline = document.getElementById('timeline');
+      timeline.innerHTML = '';
+
+      const info = document.getElementById('resultadosInfo');
+      info.textContent = `Mostrando ${logsFiltrados.length} de ${logsOriginais.length} registros`;
+
+      if (logsFiltrados.length === 0) {
+        document.getElementById('emptyState').style.display = 'block';
+        document.getElementById('timelineContainer').style.display = 'none';
+        return;
+      }
+
+      document.getElementById('emptyState').style.display = 'none';
+      document.getElementById('timelineContainer').style.display = 'block';
+
+      logsFiltrados.forEach(log => {
+        const item = document.createElement('div');
+        item.className = 'timeline-item fade-in';
+
+        // Determinar classe do marker
+        let markerClass = 'neutral';
+        if (log.status === 'success') markerClass = 'success';
+        else if (log.status === 'pending') markerClass = 'warning';
+        else if (log.status === 'error') markerClass = 'danger';
+
+        // Badge de status
+        let statusBadge = '';
+        if (log.status === 'success') {
+          statusBadge = '<span class="badge success">✅ Sucesso</span>';
+        } else if (log.status === 'pending') {
+          statusBadge = '<span class="badge warning">⏳ Pendente</span>';
+        } else if (log.status === 'error') {
+          statusBadge = '<span class="badge danger">❌ Erro</span>';
+        } else {
+          statusBadge = `<span class="badge neutral">${log.status}</span>`;
+        }
+
+        // Badge de tipo
+        const tipoBadge = log.tipoColeta === 'diario'
+          ? '<span class="badge info">📅 Diário</span>'
+          : '<span class="badge info">📈 Trimestral</span>';
+
+        // Calcular próxima verificação
+        let proximaVerificacao = '';
+        if (log.status === 'pending' || log.status === 'dados_indisponiveis') {
+          const tentativa = new Date(log.tentativaEm);
+          const proxima = new Date(tentativa.getTime() + 3 * 60 * 60 * 1000); // + 3 horas
+          const agora = new Date();
+
+          if (proxima > agora) {
+            const diff = proxima - agora;
+            const horas = Math.floor(diff / (1000 * 60 * 60));
+            const minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            proximaVerificacao = `<div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--warning);">⏰ Próxima verificação: Em ${horas}h ${minutos}min</div>`;
+          }
+        }
+
+        item.innerHTML = `
+          <div class="timeline-marker ${markerClass}"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                <span class="timeline-title">${log.empresa?.codigo || 'N/A'}</span>
+                ${statusBadge}
+                ${tipoBadge}
+              </div>
+              <span class="timeline-time">${formatarDataHora(log.tentativaEm)}</span>
+            </div>
+            <div style="font-weight: 600; margin-bottom: 0.25rem; color: var(--text-secondary);">
+              ${log.empresa?.nome || 'Empresa não encontrada'}
+            </div>
+            <div class="timeline-description">${log.mensagem || 'Sem mensagem'}</div>
+            ${log.dataReferencia ? `<div class="timeline-meta"><span>📅 Data ref.: ${formatarData(log.dataReferencia)}</span></div>` : ''}
+            ${proximaVerificacao}
+          </div>
+        `;
+
+        timeline.appendChild(item);
+      });
+    }
+
+    function formatarDataHora(dataStr) {
+      if (!dataStr) return '-';
+      const data = new Date(dataStr);
+      return data.toLocaleString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    function formatarData(dataStr) {
+      if (!dataStr) return '-';
+      const data = new Date(dataStr);
+      return data.toLocaleDateString('pt-BR');
+    }
+
+    function mostrarLoading(show) {
+      document.getElementById('loadingState').style.display = show ? 'flex' : 'none';
+      document.getElementById('timelineContainer').style.display = show ? 'none' : 'block';
+    }
+  </script>
+</body>
+
+</html>

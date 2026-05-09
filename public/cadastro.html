@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Empresa - Fundamentus Analytics</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">📈</div>
+        <div class="sidebar-title">Fundamentus</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">Principal</div>
+          <a href="dashboard.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span>Dashboard</span>
+          </a>
+          <a href="empresas.html" class="nav-item">
+            <span class="nav-icon">🏢</span>
+            <span>Empresas</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Gerenciamento</div>
+          <a href="cadastro.html" class="nav-item active">
+            <span class="nav-icon">➕</span>
+            <span>Nova Empresa</span>
+          </a>
+          <a href="status-coletas.html" class="nav-item">
+            <span class="nav-icon">🔄</span>
+            <span>Status Coletas</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Análise</div>
+          <a href="comparativo.html" class="nav-item">
+            <span class="nav-icon">📈</span>
+            <span>Comparativos</span>
+          </a>
+          <a href="#" class="nav-item" onclick="alert('Em breve!'); return false;">
+            <span class="nav-icon">📑</span>
+            <span>Relatórios</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar">A</div>
+          <div class="user-details">
+            <div class="user-name">André</div>
+            <div class="user-role">Administrador</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+      <div class="topbar">
+        <div class="topbar-left">
+          <h1 class="page-title" id="pageTitle">Nova Empresa</h1>
+        </div>
+        <div class="topbar-right">
+          <button class="topbar-btn" onclick="window.location.href='empresas.html'">
+            <span>←</span>
+            <span>Voltar</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="content-area">
+        <div class="form-container">
+          <div style="margin-bottom: 2rem;">
+            <h2 style="margin-bottom: 0.5rem;" id="formTitle">Cadastrar Nova Empresa</h2>
+            <p style="color: var(--text-muted); font-size: 0.875rem;">Preencha os dados da empresa para começar a
+              coletar informações</p>
+          </div>
+
+          <form id="empresaForm" onsubmit="salvarEmpresa(event)">
+            <div class="form-group">
+              <label class="form-label">
+                Código da Ação <span class="required">*</span>
+              </label>
+              <input type="text" class="form-input" id="codigo" placeholder="Ex: PETR4, VALE3, ITUB4" required
+                maxlength="10" style="text-transform: uppercase;">
+              <div class="form-help">Código de negociação na bolsa (ex: PETR4, VALE3)</div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Nome da Empresa <span class="required">*</span>
+              </label>
+              <input type="text" class="form-input" id="nome" placeholder="Ex: PETROBRAS PN" required>
+              <div class="form-help">Nome completo da empresa</div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Setor</label>
+              <input type="text" class="form-input" id="setor" placeholder="Ex: Petróleo, Gás e Biocombustíveis">
+              <div class="form-help">Setor de atuação (será preenchido automaticamente na coleta)</div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Subsetor</label>
+              <input type="text" class="form-input" id="subsetor" placeholder="Ex: Exploração, Refino e Distribuição">
+              <div class="form-help">Subsetor específico (será preenchido automaticamente na coleta)</div>
+            </div>
+
+            <div class="form-group">
+              <div class="checkbox-group">
+                <input type="checkbox" class="checkbox-input" id="ativo" checked>
+                <label class="checkbox-label" for="ativo">
+                  Ativa (incluir na coleta automática)
+                </label>
+              </div>
+              <div class="form-help">Desmarque se não quiser coletar dados automaticamente</div>
+            </div>
+
+            <div class="form-group">
+              <div class="checkbox-group">
+                <input type="checkbox" class="checkbox-input" id="coletarAgora">
+                <label class="checkbox-label" for="coletarAgora">
+                  Coletar dados imediatamente após cadastro
+                </label>
+              </div>
+              <div class="form-help">Busca os dados mais recentes do Fundamentus agora</div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-outline" onclick="window.location.href='empresas.html'">
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary" id="submitBtn">
+                💾 Salvar Empresa
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    let modoEdicao = false;
+    let codigoOriginal = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const codigo = urlParams.get('codigo');
+
+      if (codigo) {
+        modoEdicao = true;
+        codigoOriginal = codigo;
+        carregarEmpresa(codigo);
+
+        document.getElementById('pageTitle').textContent = 'Editar Empresa';
+        document.getElementById('formTitle').textContent = 'Editar Empresa';
+        document.getElementById('submitBtn').innerHTML = '💾 Salvar Alterações';
+        document.getElementById('codigo').disabled = true;
+      }
+    });
+
+    async function carregarEmpresa(codigo) {
+      try {
+        const response = await fetch(`/api/empresas/${codigo}`);
+        if (!response.ok) throw new Error('Empresa não encontrada');
+
+        const empresa = await response.json();
+
+        document.getElementById('codigo').value = empresa.codigo;
+        document.getElementById('nome').value = empresa.nome || '';
+        document.getElementById('setor').value = empresa.setor || '';
+        document.getElementById('subsetor').value = empresa.subsetor || '';
+        document.getElementById('ativo').checked = empresa.ativo;
+      } catch (error) {
+        console.error('Erro ao carregar empresa:', error);
+        alert('Erro ao carregar dados da empresa');
+        window.location.href = 'empresas.html';
+      }
+    }
+
+    async function salvarEmpresa(event) {
+      event.preventDefault();
+
+      const codigo = document.getElementById('codigo').value.trim().toUpperCase();
+      const nome = document.getElementById('nome').value.trim();
+      const setor = document.getElementById('setor').value.trim();
+      const subsetor = document.getElementById('subsetor').value.trim();
+      const ativo = document.getElementById('ativo').checked;
+      const coletarAgora = document.getElementById('coletarAgora').checked;
+
+      if (!codigo || !nome) {
+        alert('Código e Nome são obrigatórios');
+        return;
+      }
+
+      const dados = {
+        codigo,
+        nome,
+        setor: setor || null,
+        subsetor: subsetor || null,
+        ativo
+      };
+
+      try {
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '⏳ Salvando...';
+
+        let response;
+        if (modoEdicao) {
+          response = await fetch(`/api/empresas/${codigoOriginal}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dados)
+          });
+        } else {
+          response = await fetch('/api/empresas', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dados)
+          });
+        }
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || 'Erro ao salvar');
+        }
+
+        const result = await response.json();
+
+        // Se marcou para coletar agora
+        if (coletarAgora && !modoEdicao) {
+          submitBtn.innerHTML = '⏳ Coletando dados...';
+          try {
+            await fetch('/api/coleta/executar', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ codigo })
+            });
+          } catch (e) {
+            console.error('Erro na coleta:', e);
+          }
+        }
+
+        alert(modoEdicao ? 'Empresa atualizada com sucesso!' : 'Empresa cadastrada com sucesso!');
+        window.location.href = 'empresas.html';
+      } catch (error) {
+        console.error('Erro ao salvar:', error);
+        alert('Erro ao salvar empresa: ' + error.message);
+
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = modoEdicao ? '💾 Salvar Alterações' : '💾 Salvar Empresa';
+      }
+    }
+
+    // Tornar código sempre maiúsculo
+    document.getElementById('codigo').addEventListener('input', (e) => {
+      e.target.value = e.target.value.toUpperCase();
+    });
+  </script>
+</body>
+
+</html>

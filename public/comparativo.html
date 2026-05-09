@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparativo Trimestral - Fundamentus</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .comparativo-table {
+      width: 100%;
+      font-size: 12px;
+      border-collapse: collapse;
+    }
+
+    .comparativo-table th {
+      background: #1F2937;
+      color: #F3F4F6;
+      padding: 12px 8px;
+      text-align: right;
+      font-weight: 600;
+      border: 1px solid #374151;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .comparativo-table th:first-child {
+      text-align: left;
+      position: sticky;
+      left: 0;
+      z-index: 20;
+    }
+
+    .comparativo-table td {
+      padding: 10px 8px;
+      text-align: right;
+      border: 1px solid #374151;
+      white-space: nowrap;
+    }
+
+    .comparativo-table td:first-child {
+      text-align: left;
+      font-weight: 600;
+      background: #111827;
+      position: sticky;
+      left: 0;
+      z-index: 5;
+      cursor: pointer;
+      color: #60A5FA;
+    }
+
+    .comparativo-table td:first-child:hover {
+      text-decoration: underline;
+    }
+
+    .comparativo-table tr:hover td {
+      background: #1F2937;
+    }
+
+    .comparativo-table tr:hover td:first-child {
+      background: #1F2937;
+    }
+
+    .variacao-positiva {
+      color: #10B981;
+    }
+
+    .variacao-negativa {
+      color: #EF4444;
+    }
+
+    .valor-negativo {
+      color: #F87171;
+    }
+
+    .col-empresa {
+      min-width: 100px;
+    }
+
+    .col-online {
+      min-width: 90px;
+      background: #1E3A5F !important;
+    }
+
+    .col-trimestre {
+      min-width: 90px;
+    }
+
+    .col-variacao {
+      min-width: 100px;
+      background: #1E293B !important;
+    }
+
+    .col-anual {
+      min-width: 100px;
+      background: #1E3A3A !important;
+    }
+
+    .col-indicador {
+      min-width: 80px;
+      background: #3A1E3A !important;
+    }
+
+    .filters-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .filter-group label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #9CA3AF;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: #9CA3AF;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      overflow-y: auto;
+      max-height: calc(100vh - 280px);
+      border: 1px solid #374151;
+      border-radius: 8px;
+    }
+
+    .export-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>📊 Fundamentus</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="/dashboard.html">
+          <span class="icon">📈</span>
+          <span>Dashboard</span>
+        </a>
+        <a href="/empresas.html">
+          <span class="icon">🏢</span>
+          <span>Empresas</span>
+        </a>
+        <a href="/comparativo.html" class="active">
+          <span class="icon">📊</span>
+          <span>Comparativo</span>
+        </a>
+        <a href="/status-coletas.html">
+          <span class="icon">🔄</span>
+          <span>Status Coletas</span>
+        </a>
+        <a href="/cadastro.html">
+          <span class="icon">➕</span>
+          <span>Cadastrar</span>
+        </a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="page-header">
+        <div>
+          <h1>Comparativo Trimestral</h1>
+          <p class="text-muted">Análise comparativa de resultados trimestrais</p>
+        </div>
+        <div class="export-buttons">
+          <button class="btn btn-secondary" onclick="exportarCSV()">
+            📥 Exportar CSV
+          </button>
+          <button class="btn btn-primary" onclick="carregarDados()">
+            🔄 Atualizar
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>Filtros</h2>
+        </div>
+        <div class="card-body">
+          <div class="filters-row">
+            <div class="filter-group">
+              <label>Métrica</label>
+              <select id="metrica" class="select" onchange="atualizarTabela()">
+                <option value="lucro3m">Lucro Líquido 3M</option>
+                <option value="lucro12m">Lucro Líquido 12M</option>
+                <option value="receita3m">Receita Líquida 3M</option>
+                <option value="receita12m">Receita Líquida 12M</option>
+                <option value="ebit3m">EBIT 3M</option>
+                <option value="ebit12m">EBIT 12M</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Setor</label>
+              <select id="setor" class="select" onchange="atualizarTabela()">
+                <option value="">Todos os setores</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Buscar Empresa</label>
+              <input type="text" id="busca" class="input" placeholder="Digite o código..." onkeyup="atualizarTabela()">
+            </div>
+
+            <div class="filter-group">
+              <label>Unidade</label>
+              <select id="unidade" class="select" onchange="atualizarTabela()">
+                <option value="milhoes">Milhões (R$ M)</option>
+                <option value="milhares">Milhares (R$ mil)</option>
+                <option value="reais">Reais (R$)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>Resultados Trimestrais</h2>
+          <span id="totalEmpresas" class="badge">0 empresas</span>
+        </div>
+        <div class="card-body">
+          <div class="table-container">
+            <table class="comparativo-table" id="tabelaComparativo">
+              <thead>
+                <tr>
+                  <th class="col-empresa">EMPRESA</th>
+                  <th class="col-online">1T Online</th>
+                  <th class="col-trimestre">1T26</th>
+                  <th class="col-trimestre">1T25</th>
+                  <th class="col-variacao">AH% 1T26-1T25</th>
+                  <th class="col-trimestre">2T25</th>
+                  <th class="col-trimestre">2T24</th>
+                  <th class="col-variacao">AH% 2T25-2T24</th>
+                  <th class="col-trimestre">3T25</th>
+                  <th class="col-trimestre">3T24</th>
+                  <th class="col-variacao">AH% 3T25-3T24</th>
+                  <th class="col-trimestre">4T25</th>
+                  <th class="col-trimestre">4T24</th>
+                  <th class="col-variacao">AH% 4T25-4T24</th>
+                  <th class="col-anual">2025</th>
+                  <th class="col-anual">2024</th>
+                  <th class="col-variacao">AH% 25-24</th>
+                  <th class="col-indicador">P/L</th>
+                  <th class="col-indicador">EV/Ebitda</th>
+                </tr>
+              </thead>
+              <tbody id="corpoTabela">
+                <tr>
+                  <td colspan="19" class="loading">
+                    <div>Carregando dados...</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="comparativo.js"></script>
+</body>
+
+</html>

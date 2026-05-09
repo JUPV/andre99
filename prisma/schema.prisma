@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../fundamentus.db"
+}
+
+model Empresa {
+  id           Int      @id @default(autoincrement())
+  codigo       String   @unique
+  nome         String
+  setor        String?
+  subsetor     String?
+  ativo        Boolean  @default(true)
+  criadoEm     DateTime @default(now()) @map("criado_em")
+  atualizadoEm DateTime @updatedAt @map("atualizado_em")
+
+  dadosTrimestrais DadosTrimestral[]
+  dadosDiarios     DadosDiario[]
+  logsColeta       LogColeta[]
+
+  @@map("empresas")
+}
+
+model DadosTrimestral {
+  id          Int    @id @default(autoincrement())
+  empresaId   Int    @map("empresa_id")
+  dataBalanco String @map("data_balanco") // Formato: YYYY-MM-DD
+
+  // Últimos 3 meses
+  receitaLiquida3m Float? @map("receita_liquida_3m")
+  ebit3m           Float? @map("ebit_3m")
+  lucroLiquido3m   Float? @map("lucro_liquido_3m")
+
+  // Últimos 12 meses
+  receitaLiquida12m Float? @map("receita_liquida_12m")
+  ebit12m           Float? @map("ebit_12m")
+  lucroLiquido12m   Float? @map("lucro_liquido_12m")
+
+  coletadoEm DateTime @default(now()) @map("coletado_em")
+
+  empresa Empresa @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+
+  @@unique([empresaId, dataBalanco])
+  @@index([empresaId, dataBalanco])
+  @@map("dados_trimestrais")
+}
+
+model DadosDiario {
+  id        Int    @id @default(autoincrement())
+  empresaId Int    @map("empresa_id")
+  data      String // Formato: YYYY-MM-DD
+
+  cotacao  Float?
+  pl       Float?
+  evEbitda Float? @map("ev_ebitda")
+
+  // Dados complementares
+  valorMercado Float? @map("valor_mercado")
+  valorFirma   Float? @map("valor_firma")
+  divYield     Float? @map("div_yield")
+  roe          Float?
+  roic         Float?
+
+  coletadoEm DateTime @default(now()) @map("coletado_em")
+
+  empresa Empresa @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+
+  @@unique([empresaId, data])
+  @@index([empresaId, data])
+  @@map("dados_diarios")
+}
+
+model LogColeta {
+  id             Int      @id @default(autoincrement())
+  empresaId      Int      @map("empresa_id")
+  tipoColeta     String   @map("tipo_coleta") // 'diario' ou 'trimestral'
+  status         String // 'sucesso', 'erro', 'dados_indisponiveis'
+  mensagem       String?
+  dataReferencia String?  @map("data_referencia") // Data dos dados coletados (para trimestral)
+  tentativaEm    DateTime @default(now()) @map("tentativa_em")
+
+  empresa Empresa @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+
+  @@index([empresaId, tipoColeta, tentativaEm])
+  @@map("logs_coleta")
+}

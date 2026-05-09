@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalhes da Empresa - Fundamentus</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>📊 Fundamentus</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="/dashboard.html">
+          <span class="icon">📈</span>
+          <span>Dashboard</span>
+        </a>
+        <a href="/empresas.html">
+          <span class="icon">🏢</span>
+          <span>Empresas</span>
+        </a>
+        <a href="/comparativo.html">
+          <span class="icon">📊</span>
+          <span>Comparativo</span>
+        </a>
+        <a href="/status-coletas.html">
+          <span class="icon">🔄</span>
+          <span>Status Coletas</span>
+        </a>
+        <a href="/cadastro.html">
+          <span class="icon">➕</span>
+          <span>Cadastrar</span>
+        </a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="page-header">
+        <div>
+          <h1 id="empresaNome">Carregando...</h1>
+          <p id="empresaInfo" class="text-muted"></p>
+        </div>
+        <button class="btn btn-primary" onclick="forcarColeta()">
+          🔄 Atualizar Dados
+        </button>
+      </div>
+
+      <!-- Cards de Resumo -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Cotação Atual</div>
+          <div class="stat-value" id="cotacao">-</div>
+          <div class="stat-change" id="cotacaoData">-</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">P/L</div>
+          <div class="stat-value" id="pl">-</div>
+          <div class="stat-change">Price/Earnings</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">EV/EBITDA</div>
+          <div class="stat-value" id="evEbitda">-</div>
+          <div class="stat-change">Enterprise Value</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Dividend Yield</div>
+          <div class="stat-value" id="divYield">-</div>
+          <div class="stat-change">Rendimento</div>
+        </div>
+      </div>
+
+      <!-- Dados Trimestrais -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Dados Trimestrais</h2>
+          <div class="card-actions">
+            <select id="metricas" class="select" onchange="atualizarGrafico()">
+              <option value="lucro">Lucro Líquido</option>
+              <option value="receita">Receita Líquida</option>
+              <option value="ebit">EBIT</option>
+            </select>
+          </div>
+        </div>
+        <div class="card-body">
+          <canvas id="graficoTrimestral" height="80"></canvas>
+        </div>
+      </div>
+
+      <!-- Tabela de Dados -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Histórico Trimestral</h2>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Data Balanço</th>
+                  <th class="text-right">Receita 3M</th>
+                  <th class="text-right">EBIT 3M</th>
+                  <th class="text-right">Lucro 3M</th>
+                  <th class="text-right">Receita 12M</th>
+                  <th class="text-right">EBIT 12M</th>
+                  <th class="text-right">Lucro 12M</th>
+                  <th class="text-right">Margem</th>
+                </tr>
+              </thead>
+              <tbody id="tabelaTrimestrais">
+                <tr>
+                  <td colspan="8" class="text-center">Carregando dados...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Indicadores -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Indicadores de Mercado</h2>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th class="text-right">Cotação</th>
+                  <th class="text-right">P/L</th>
+                  <th class="text-right">EV/EBITDA</th>
+                  <th class="text-right">ROE</th>
+                  <th class="text-right">ROIC</th>
+                  <th class="text-right">Valor Mercado</th>
+                  <th class="text-right">Div Yield</th>
+                </tr>
+              </thead>
+              <tbody id="tabelaDiarios">
+                <tr>
+                  <td colspan="8" class="text-center">Carregando dados...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="empresa-detalhes.js"></script>
+</body>
+
+</html>
