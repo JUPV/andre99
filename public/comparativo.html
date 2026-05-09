@@ -7,9 +7,57 @@
   <title>Comparativo Trimestral - Fundamentus</title>
   <link rel="stylesheet" href="styles.css">
   <style>
+    /* Toggle Menu Button */
+    .toggle-menu {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1000;
+      background: #1F2937;
+      border: 1px solid #374151;
+      color: #F3F4F6;
+      padding: 0.75rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .toggle-menu:hover {
+      background: #374151;
+      transform: scale(1.05);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .sidebar {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebar.collapsed {
+      transform: translateX(-100%);
+    }
+
+    .main-content {
+      transition: all 0.3s ease-in-out;
+    }
+
+    .main-content.expanded {
+      margin-left: 0;
+      width: 100%;
+    }
+
+    .toggle-menu.menu-hidden {
+      left: 1rem;
+    }
+
     .comparativo-table {
       width: 100%;
-      font-size: 12px;
+      font-size: 11px;
       border-collapse: collapse;
     }
 
@@ -48,10 +96,13 @@
       z-index: 5;
       cursor: pointer;
       color: #60A5FA;
+      transition: all 0.2s;
     }
 
     .comparativo-table td:first-child:hover {
       text-decoration: underline;
+      background: #1F2937;
+      color: #93C5FD;
     }
 
     .comparativo-table tr:hover td {
@@ -136,6 +187,11 @@
       border-radius: 8px;
     }
 
+    /* Melhor altura quando menu está oculto */
+    .main-content.expanded .table-container {
+      max-height: calc(100vh - 250px);
+    }
+
     .export-buttons {
       display: flex;
       gap: 0.5rem;
@@ -144,8 +200,13 @@
 </head>
 
 <body>
+  <button class="toggle-menu" onclick="toggleMenu()" id="toggleBtn">
+    <span id="menuIcon">☰</span>
+    <span id="menuText">Ocultar Menu</span>
+  </button>
+
   <div class="layout">
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <h1>📊 Fundamentus</h1>
       </div>
@@ -173,7 +234,7 @@
       </nav>
     </aside>
 
-    <main class="main-content">
+    <main class="main-content" id="mainContent">
       <div class="page-header">
         <div>
           <h1>Comparativo Trimestral</h1>
@@ -277,6 +338,28 @@
   </div>
 
   <script src="comparativo.js"></script>
+  <script>
+    // Toggle Menu Function
+    function toggleMenu() {
+      const sidebar = document.getElementById('sidebar');
+      const mainContent = document.getElementById('mainContent');
+      const toggleBtn = document.getElementById('toggleBtn');
+      const menuIcon = document.getElementById('menuIcon');
+      const menuText = document.getElementById('menuText');
+
+      sidebar.classList.toggle('collapsed');
+      mainContent.classList.toggle('expanded');
+      toggleBtn.classList.toggle('menu-hidden');
+
+      if (sidebar.classList.contains('collapsed')) {
+        menuIcon.textContent = '☰';
+        menuText.textContent = 'Mostrar Menu';
+      } else {
+        menuIcon.textContent = '✕';
+        menuText.textContent = 'Ocultar Menu';
+      }
+    }
+  </script>
 </body>
 
 </html>

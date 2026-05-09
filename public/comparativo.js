@@ -4,8 +4,22 @@ let setoresDisponiveis = new Set();
 // Carregar dados
 async function carregarDados() {
   try {
+    document.getElementById('corpoTabela').innerHTML = `
+      <tr>
+        <td colspan="19" class="loading">
+          <div>Carregando dados...</div>
+        </td>
+      </tr>
+    `;
+
     const response = await fetch('/api/comparativo-trimestral');
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
     dadosComparativos = await response.json();
+    console.log('Dados carregados:', dadosComparativos.length, 'empresas');
 
     // Extrair setores únicos
     setoresDisponiveis.clear();
@@ -28,7 +42,8 @@ async function carregarDados() {
     document.getElementById('corpoTabela').innerHTML = `
             <tr>
                 <td colspan="19" class="loading text-danger">
-                    Erro ao carregar dados. Tente novamente.
+                    ⚠️ Erro ao carregar dados: ${error.message}<br>
+                    <button class="btn btn-primary" style="margin-top: 1rem;" onclick="carregarDados()">Tentar Novamente</button>
                 </td>
             </tr>
         `;
@@ -183,6 +198,7 @@ function formatarPercentual(valor) {
 
 // Abrir detalhes da empresa
 function abrirDetalhes(codigo) {
+  console.log('Abrindo detalhes da empresa:', codigo);
   window.location.href = `/empresa-detalhes.html?codigo=${codigo}`;
 }
 
