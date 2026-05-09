@@ -121,6 +121,29 @@ const count = await prisma.empresa.count();
 res.json({ count: Number(count) }); // ← Converter
 ```
 
+## ⚠️ AVISOS CONHECIDOS (NÃO-CRÍTICOS)
+
+Estes avisos aparecem no editor mas **NÃO impedem o funcionamento**:
+
+### 1. 🟡 TypeScript `moduleResolution: "node10"` Deprecated
+**Aviso:** "A opção 'moduleResolution=node10' foi preterida e deixará de funcionar no TypeScript 7.0"
+
+**Status:** ✅ Funciona perfeitamente no TypeScript 5.3.3 atual
+
+**Por quê manter?** 
+- Código usa CommonJS (`require`/`module.exports`)
+- Migrar para `node16` exige reescrever tudo para ESM (`import`/`export`)
+- Só será problema ao atualizar para TypeScript 7.0 (futuro distante)
+
+**Ação futura:** Quando migrar para TypeScript 7.0, considerar migração completa para ESM.
+
+### 2. 🟡 Prisma Schema Prisma 7 Warning
+**Aviso:** "The datasource property `url` is no longer supported in schema files"
+
+**Status:** ✅ Funciona perfeitamente no Prisma 5.11.0 atual
+
+**Ação futura:** Quando atualizar para Prisma 7, mover URL para `prisma.config.ts`.
+
 ## 🔍 Antes de Modificar uma Pasta
 
 ### 1. Leia o CONTEXT.md da pasta

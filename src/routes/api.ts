@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import { empresaRepository, dadosTrimestraisRepository, dadosDiariosRepository, logColetaRepository } from '../database/repositories';
 import { executarColetaManual } from '../services/coleta-automatica';
+import { lerLogs, obterEstatisticas, TipoLog } from '../utils/logger';
+import { prisma } from '../database/repositories';
 
 const router = Router();
 
@@ -426,6 +428,210 @@ router.get('/empresas/:codigo/detalhes-completos', async (req, res) => {
   } catch (error) {
     console.error('Erro ao buscar detalhes completos:', error);
     res.status(500).json({ error: 'Erro ao buscar detalhes da empresa' });
+  }
+});
+
+// ============= RELATÓRIOS E LOGS =============
+
+// Obter logs do sistema
+router.get('/relatorios/logs', async (req, res) => {
+  try {
+    const { tipo, limite } = req.query;
+
+    let logs = lerLogs();
+
+    // Filtrar por tipo se especificado
+    if (tipo && ['info', 'success', 'warning', 'error'].includes(tipo as string)) {
+      logs = logs.filter(l => l.tipo === tipo);
+    }
+
+    // Limitar resultados
+    const limit = limite ? parseInt(limite as string) : 100;
+    logs = logs.slice(0, limit);
+
+    res.json({ logs, total: logs.length });
+  } catch (error) {
+    console.error('Erro ao buscar logs:', error);
+    res.status(500).json({ error: 'Erro ao buscar logs' });
+  }
+});
+
+// Obter estatísticas do sistema
+router.get('/relatorios/estatisticas', async (req, res) => {
+  try {
+    const statsLogs = obterEstatisticas();
+
+    // Estatísticas do banco de dados
+    const [
+      totalEmpresas,
+      empresasAtivas,
+      totalTrimestrais,
+      totalDiarios,
+      totalLogs,
+      ultimosLogs
+    ] = await Promise.all([
+      prisma.empresa.count(),
+      prisma.empresa.count({ where: { ativo: true } }),
+      prisma.dadosTrimestral.count(),
+      prisma.dadosDiario.count(),
+      prisma.logColeta.count(),
+      prisma.logColeta.findMany({
+        take: 10,
+        orderBy: { tentativaEm: 'desc' },
+        include: {
+          empresa: {
+            select: { codigo: true, nome: true }
+          }
+        }
+      })
+    ]);
+
+    // Contar logs de coleta por status
+    const logsPorStatus = await prisma.logColeta.groupBy({
+      by: ['status'],
+      _count: { status: true }
+    });
+
+    const statusCount: Record<string, number> = {};
+    for (const item of logsPorStatus) {
+      statusCount[item.status] = Number(item._count.status);
+    }
+
+    // Últimas 24 horas
+    const ultimas24h = new Date();
+    ultimas24h.setHours(ultimas24h.getHours() - 24);
+
+    const [
+      coletasUltimas24h,
+      errosUltimas24h
+    ] = await Promise.all([
+      prisma.logColeta.count({
+        where: {
+          tentativaEm: { gte: ultimas24h }
+        }
+      }),
+      prisma.logColeta.count({
+        where: {
+          tentativaEm: { gte: ultimas24h },
+          status: 'erro'
+        }
+      })
+    ]);
+
+    res.json({
+      sistema: {
+        online: true,
+        versao: '1.0.0',
+        dataHora: new Date().toISOString()
+      },
+      banco: {
+        totalEmpresas: Number(totalEmpresas),
+        empresasAtivas: Number(empresasAtivas),
+        totalTrimestrais: Number(totalTrimestrais),
+        totalDiarios: Number(totalDiarios),
+        totalLogs: Number(totalLogs)
+      },
+      coletas: {
+        porStatus: statusCount,
+        ultimas24h: Number(coletasUltimas24h),
+        errosUltimas24h: Number(errosUltimas24h),
+        taxaSucesso: coletasUltimas24h > 0
+          ? ((coletasUltimas24h - errosUltimas24h) / coletasUltimas24h * 100).toFixed(2) + '%'
+          : 'N/A'
+      },
+      logs: {
+        sistema: statsLogs,
+        ultimasColetas: ultimosLogs.map((log: any) => ({
+          empresa: log.empresa.codigo,
+          tipo: log.tipoColeta,
+          status: log.status,
+          mensagem: log.mensagem,
+          dataHora: log.tentativaEm
+        }))
+      }
+    });
+  } catch (error) {
+    console.error('Erro ao buscar estatísticas:', error);
+    res.status(500).json({ error: 'Erro ao buscar estatísticas' });
+  }
+});
+
+// Relatório resumido de saúde do sistema
+router.get('/relatorios/saude', async (req, res) => {
+  try {
+    const agora = new Date();
+    const ultimas24h = new Date(agora.getTime() - 24 * 60 * 60 * 1000);
+
+    // Verificar coletas nas últimas 24h
+    const coletasRecentes = await prisma.logColeta.count({
+      where: {
+        tentativaEm: { gte: ultimas24h }
+      }
+    });
+
+    const errosRecentes = await prisma.logColeta.count({
+      where: {
+        tentativaEm: { gte: ultimas24h },
+        status: 'erro'
+      }
+    });
+
+    // Verificar empresas sem dados
+    const empresasSemDados = await prisma.empresa.count({
+      where: {
+        ativo: true,
+        dadosTrimestrais: {
+          none: {}
+        }
+      }
+    });
+
+    // Status de saúde
+    let status: 'saudavel' | 'atencao' | 'critico';
+    const problemas: string[] = [];
+
+    if (errosRecentes > 0) {
+      const taxaErro = (errosRecentes / coletasRecentes) * 100;
+      if (taxaErro > 50) {
+        status = 'critico';
+        problemas.push(`Taxa de erro alta: ${taxaErro.toFixed(1)}%`);
+      } else if (taxaErro > 20) {
+        status = 'atencao';
+        problemas.push(`Taxa de erro moderada: ${taxaErro.toFixed(1)}%`);
+      } else {
+        status = 'saudavel';
+      }
+    } else if (coletasRecentes === 0) {
+      status = 'atencao';
+      problemas.push('Nenhuma coleta nas últimas 24h');
+    } else {
+      status = 'saudavel';
+    }
+
+    if (empresasSemDados > 0) {
+      problemas.push(`${empresasSemDados} empresas ativas sem dados`);
+    }
+
+    res.json({
+      status,
+      timestamp: agora.toISOString(),
+      metricas: {
+        coletasUltimas24h: Number(coletasRecentes),
+        errosUltimas24h: Number(errosRecentes),
+        taxaSucesso: coletasRecentes > 0
+          ? ((coletasRecentes - errosRecentes) / coletasRecentes * 100).toFixed(1) + '%'
+          : 'N/A',
+        empresasSemDados: Number(empresasSemDados)
+      },
+      problemas
+    });
+  } catch (error) {
+    console.error('Erro ao verificar saúde:', error);
+    res.status(500).json({
+      status: 'critico',
+      error: 'Erro ao verificar saúde do sistema',
+      timestamp: new Date().toISOString()
+    });
   }
 });
 

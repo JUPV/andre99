@@ -1,5 +1,8 @@
 import prisma from './prisma';
 
+// Exportar prisma para uso em outros módulos
+export { prisma };
+
 export interface Empresa {
   id?: number;
   codigo: string;

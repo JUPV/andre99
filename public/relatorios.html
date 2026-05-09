@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatórios e Logs - Fundamentus</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">📊</div>
+        <div class="sidebar-title">Fundamentus</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">Principal</div>
+          <a href="dashboard.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span>Dashboard</span>
+          </a>
+          <a href="empresas.html" class="nav-item">
+            <span class="nav-icon">🏢</span>
+            <span>Empresas</span>
+          </a>
+          <a href="cadastro.html" class="nav-item">
+            <span class="nav-icon">➕</span>
+            <span>Nova Empresa</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Análise</div>
+          <a href="comparativo.html" class="nav-item">
+            <span class="nav-icon">📈</span>
+            <span>Comparativo</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Sistema</div>
+          <a href="status-coletas.html" class="nav-item">
+            <span class="nav-icon">📋</span>
+            <span>Status Coletas</span>
+          </a>
+          <a href="relatorios.html" class="nav-item active">
+            <span class="nav-icon">📄</span>
+            <span>Relatórios</span>
+          </a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content" id="mainContent">
+      <!-- Toggle Menu -->
+      <button class="toggle-menu" onclick="toggleMenu()" id="toggleBtn">
+        <span id="menuIcon">☰</span>
+        <span id="menuText">Ocultar Menu</span>
+      </button>
+
+      <!-- Header -->
+      <div class="page-header">
+        <div>
+          <h1>📄 Relatórios e Logs do Sistema</h1>
+          <p>Monitoramento em tempo real do funcionamento e erros</p>
+        </div>
+        <button class="btn btn-primary" onclick="atualizarTudo()">🔄 Atualizar</button>
+      </div>
+
+      <!-- Cards de Saúde -->
+      <div class="stats-grid" style="margin-bottom: 2rem;">
+        <div class="stat-card" id="statusSistema">
+          <div class="stat-icon" id="statusIcon">⏳</div>
+          <div class="stat-info">
+            <div class="stat-label">Status do Sistema</div>
+            <div class="stat-value" id="statusValue">Carregando...</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">📊</div>
+          <div class="stat-info">
+            <div class="stat-label">Total de Logs</div>
+            <div class="stat-value" id="totalLogs">-</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="color: #EF4444;">❌</div>
+          <div class="stat-info">
+            <div class="stat-label">Erros (24h)</div>
+            <div class="stat-value" id="erros24h">-</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="color: #10B981;">✅</div>
+          <div class="stat-info">
+            <div class="stat-label">Taxa de Sucesso</div>
+            <div class="stat-value" id="taxaSucesso">-</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtros -->
+      <div class="card" style="margin-bottom: 2rem;">
+        <div class="card-header">
+          <h2>🔍 Filtros</h2>
+        </div>
+        <div class="card-body">
+          <div class="filters-row">
+            <div class="filter-group">
+              <label>Tipo de Log</label>
+              <select id="filtroTipo" class="select" onchange="carregarLogs()">
+                <option value="">Todos</option>
+                <option value="info">ℹ️ Informação</option>
+                <option value="success">✅ Sucesso</option>
+                <option value="warning">⚠️ Aviso</option>
+                <option value="error">❌ Erro</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Limite</label>
+              <select id="filtroLimite" class="select" onchange="carregarLogs()">
+                <option value="50">50 registros</option>
+                <option value="100" selected>100 registros</option>
+                <option value="200">200 registros</option>
+                <option value="500">500 registros</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>&nbsp;</label>
+              <button class="btn btn-outline" onclick="limparFiltros()">Limpar Filtros</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estatísticas Detalhadas -->
+      <div class="card" style="margin-bottom: 2rem;">
+        <div class="card-header">
+          <h2>📈 Estatísticas Detalhadas</h2>
+        </div>
+        <div class="card-body">
+          <div id="estatisticasDetalhadas">Carregando...</div>
+        </div>
+      </div>
+
+      <!-- Tabela de Logs -->
+      <div class="card">
+        <div class="card-header">
+          <h2>📋 Logs do Sistema</h2>
+        </div>
+        <div class="card-body">
+          <div style="overflow-x: auto;">
+            <table id="tabelaLogs">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Tipo</th>
+                  <th>Módulo</th>
+                  <th>Mensagem</th>
+                  <th>Detalhes</th>
+                </tr>
+              </thead>
+              <tbody id="logsBody">
+                <tr>
+                  <td colspan="5" style="text-align: center; padding: 2rem;">
+                    Carregando logs...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="relatorios.js"></script>
+</body>
+
+</html>
