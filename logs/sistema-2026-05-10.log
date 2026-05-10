@@ -1,0 +1,143 @@
+{"timestamp":"2026-05-10T03:00:00.142Z","tipo":"info","modulo":"CRON","mensagem":"Verificando dados trimestrais (a cada 3h)"}
+{"timestamp":"2026-05-10T03:00:00.145Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"Iniciando verificação de dados trimestrais"}
+{"timestamp":"2026-05-10T03:00:00.153Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"106 empresas ativas para verificar"}
+{"timestamp":"2026-05-10T03:00:00.315Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"Verificação trimestral concluída","detalhes":{"total":106,"sucessos":0,"erros":0,"jaAtualizados":106}}
+{"timestamp":"2026-05-10T06:00:00.306Z","tipo":"info","modulo":"CRON","mensagem":"Verificando dados trimestrais (a cada 3h)"}
+{"timestamp":"2026-05-10T06:00:00.309Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"Iniciando verificação de dados trimestrais"}
+{"timestamp":"2026-05-10T06:00:00.317Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"106 empresas ativas para verificar"}
+{"timestamp":"2026-05-10T06:00:00.508Z","tipo":"warning","modulo":"COLETA-AUTO","mensagem":"ELET3: Dados trimestrais indisponíveis"}
+{"timestamp":"2026-05-10T06:00:00.601Z","tipo":"warning","modulo":"COLETA-AUTO","mensagem":"EMBR3: Dados trimestrais indisponíveis"}
+{"timestamp":"2026-05-10T06:00:00.799Z","tipo":"warning","modulo":"COLETA-AUTO","mensagem":"MRFG3: Dados trimestrais indisponíveis"}
+{"timestamp":"2026-05-10T06:00:00.865Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"Verificação trimestral concluída","detalhes":{"total":106,"sucessos":0,"erros":0,"jaAtualizados":103}}
+{"timestamp":"2026-05-10T09:00:00.765Z","tipo":"info","modulo":"CRON","mensagem":"Verificando dados trimestrais (a cada 3h)"}
+{"timestamp":"2026-05-10T09:00:00.767Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"Iniciando verificação de dados trimestrais"}
+{"timestamp":"2026-05-10T09:00:00.772Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"106 empresas ativas para verificar"}
+{"timestamp":"2026-05-10T09:00:02.022Z","tipo":"warning","modulo":"COLETA-AUTO","mensagem":"ELET3: Dados trimestrais indisponíveis"}
+{"timestamp":"2026-05-10T09:00:02.107Z","tipo":"warning","modulo":"COLETA-AUTO","mensagem":"EMBR3: Dados trimestrais indisponíveis"}
+{"timestamp":"2026-05-10T09:00:02.213Z","tipo":"warning","modulo":"COLETA-AUTO","mensagem":"MRFG3: Dados trimestrais indisponíveis"}
+{"timestamp":"2026-05-10T09:00:02.283Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"Verificação trimestral concluída","detalhes":{"total":106,"sucessos":0,"erros":0,"jaAtualizados":103}}
+{"timestamp":"2026-05-10T12:00:00.890Z","tipo":"info","modulo":"CRON","mensagem":"Executando coleta diária agendada (9h)"}
+{"timestamp":"2026-05-10T12:00:00.893Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"Iniciando coleta de dados diários"}
+{"timestamp":"2026-05-10T12:00:00.896Z","tipo":"info","modulo":"CRON","mensagem":"Verificando dados trimestrais (a cada 3h)"}
+{"timestamp":"2026-05-10T12:00:00.896Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"Iniciando verificação de dados trimestrais"}
+{"timestamp":"2026-05-10T12:00:00.898Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"106 empresas para coleta diária"}
+{"timestamp":"2026-05-10T12:00:00.899Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"106 empresas ativas para verificar"}
+{"timestamp":"2026-05-10T12:00:01.077Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"AALR3: Cotação R$ 3.10"}
+{"timestamp":"2026-05-10T12:00:01.152Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"Verificação trimestral concluída","detalhes":{"total":106,"sucessos":0,"erros":0,"jaAtualizados":106}}
+{"timestamp":"2026-05-10T12:00:03.304Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"ABEV3: Cotação R$ 16.32"}
+{"timestamp":"2026-05-10T12:00:05.446Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"AGRO3: Cotação R$ 19.06"}
+{"timestamp":"2026-05-10T12:00:07.598Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"ALPA4: Cotação R$ 12.29"}
+{"timestamp":"2026-05-10T12:00:09.725Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"ALPK3: Cotação R$ 4.33"}
+{"timestamp":"2026-05-10T12:00:11.872Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"AMBP3: Cotação R$ 0.20"}
+{"timestamp":"2026-05-10T12:00:14.030Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"AMER3: Cotação R$ 5.45"}
+{"timestamp":"2026-05-10T12:00:16.202Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"ANIM3: Cotação R$ 3.84"}
+{"timestamp":"2026-05-10T12:00:18.367Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"ASAI3: Cotação R$ 9.28"}
+{"timestamp":"2026-05-10T12:00:20.547Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"AURA33: Cotação R$ 133.20"}
+{"timestamp":"2026-05-10T12:00:22.717Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"AZUL4: Cotação R$ 0.81"}
+{"timestamp":"2026-05-10T12:00:24.869Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"B3SA3: Cotação R$ 17.93"}
+{"timestamp":"2026-05-10T12:00:27.012Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"BBAS3: Cotação R$ 21.80"}
+{"timestamp":"2026-05-10T12:00:29.163Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"BBDC4: Cotação R$ 18.59"}
+{"timestamp":"2026-05-10T12:00:31.325Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"BBSE3: Cotação R$ 34.52"}
+{"timestamp":"2026-05-10T12:00:33.479Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"BEEF3: Cotação R$ 4.10"}
+{"timestamp":"2026-05-10T12:00:35.623Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"BHIA3: Cotação R$ 2.16"}
+{"timestamp":"2026-05-10T12:00:37.786Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"BPAC11: Cotação R$ 58.65"}
+{"timestamp":"2026-05-10T12:00:39.940Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"BRFS3: Cotação R$ 17.95"}
+{"timestamp":"2026-05-10T12:00:42.096Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"BRKM5: Cotação R$ 8.99"}
+{"timestamp":"2026-05-10T12:00:44.237Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"BRSR6: Cotação R$ 15.26"}
+{"timestamp":"2026-05-10T12:00:46.366Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"CMIG4: Cotação R$ 11.77"}
+{"timestamp":"2026-05-10T12:00:48.517Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"CMIN3: Cotação R$ 4.81"}
+{"timestamp":"2026-05-10T12:00:50.643Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"COGN3: Cotação R$ 2.82"}
+{"timestamp":"2026-05-10T12:00:52.781Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"CPFE3: Cotação R$ 48.94"}
+{"timestamp":"2026-05-10T12:00:54.941Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"CPLE6: Cotação R$ 14.26"}
+{"timestamp":"2026-05-10T12:00:57.057Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"CRFB3: Cotação R$ 8.48"}
+{"timestamp":"2026-05-10T12:00:59.183Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"CSAN3: Cotação R$ 5.14"}
+{"timestamp":"2026-05-10T12:01:01.346Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"CSMG3: Cotação R$ 54.44"}
+{"timestamp":"2026-05-10T12:01:03.479Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"CSNA3: Cotação R$ 6.68"}
+{"timestamp":"2026-05-10T12:01:05.614Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"CURY3: Cotação R$ 31.27"}
+{"timestamp":"2026-05-10T12:01:07.775Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"CVCB3: Cotação R$ 2.21"}
+{"timestamp":"2026-05-10T12:01:09.924Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"CYRE3: Cotação R$ 22.33"}
+{"timestamp":"2026-05-10T12:01:12.084Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"DASA3: Cotação R$ 3.31"}
+{"timestamp":"2026-05-10T12:01:14.239Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"DXCO3: Cotação R$ 5.77"}
+{"timestamp":"2026-05-10T12:01:16.373Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"ECOR3: Cotação R$ 8.92"}
+{"timestamp":"2026-05-10T12:01:18.518Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"EGIE3: Cotação R$ 34.29"}
+{"timestamp":"2026-05-10T12:01:20.614Z","tipo":"warning","modulo":"COLETA-AUTO","mensagem":"ELET3: Cotação indisponível"}
+{"timestamp":"2026-05-10T12:01:20.733Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"EMAE4: Cotação R$ 41.16"}
+{"timestamp":"2026-05-10T12:01:22.814Z","tipo":"warning","modulo":"COLETA-AUTO","mensagem":"EMBR3: Cotação indisponível"}
+{"timestamp":"2026-05-10T12:01:22.930Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"ENEV3: Cotação R$ 27.27"}
+{"timestamp":"2026-05-10T12:01:25.086Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"ENGI11: Cotação R$ 52.73"}
+{"timestamp":"2026-05-10T12:01:27.228Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"EQTL3: Cotação R$ 42.31"}
+{"timestamp":"2026-05-10T12:01:29.385Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"EVEN3: Cotação R$ 5.89"}
+{"timestamp":"2026-05-10T12:01:31.533Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"FLRY3: Cotação R$ 16.58"}
+{"timestamp":"2026-05-10T12:01:33.686Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"GFSA3: Cotação R$ 1.25"}
+{"timestamp":"2026-05-10T12:01:35.822Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"GGBR4: Cotação R$ 23.88"}
+{"timestamp":"2026-05-10T12:01:37.958Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"GOAU4: Cotação R$ 10.44"}
+{"timestamp":"2026-05-10T12:01:40.084Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"GOLL4: Cotação R$ 0.79"}
+{"timestamp":"2026-05-10T12:01:42.236Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"HAPV3: Cotação R$ 11.81"}
+{"timestamp":"2026-05-10T12:01:44.364Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"HBSA3: Cotação R$ 3.45"}
+{"timestamp":"2026-05-10T12:01:46.493Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"HYPE3: Cotação R$ 23.36"}
+{"timestamp":"2026-05-10T12:01:48.633Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"IGTI11: Cotação R$ 28.13"}
+{"timestamp":"2026-05-10T12:01:50.787Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"IRBR3: Cotação R$ 53.27"}
+{"timestamp":"2026-05-10T12:01:52.919Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"ITSA4: Cotação R$ 13.50"}
+{"timestamp":"2026-05-10T12:01:55.063Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"ITUB4: Cotação R$ 41.26"}
+{"timestamp":"2026-05-10T12:01:57.184Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"JBSS3: Cotação R$ 39.03"}
+{"timestamp":"2026-05-10T12:01:59.310Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"JHSF3: Cotação R$ 11.33"}
+{"timestamp":"2026-05-10T12:02:01.470Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"KEPL3: Cotação R$ 7.79"}
+{"timestamp":"2026-05-10T12:02:03.600Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"KLBN11: Cotação R$ 17.19"}
+{"timestamp":"2026-05-10T12:02:05.755Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"LOGN3: Cotação R$ 30.26"}
+{"timestamp":"2026-05-10T12:02:07.909Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"LREN3: Cotação R$ 14.35"}
+{"timestamp":"2026-05-10T12:02:10.058Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"LWSA3: Cotação R$ 3.91"}
+{"timestamp":"2026-05-10T12:02:12.192Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"MDIA3: Cotação R$ 21.25"}
+{"timestamp":"2026-05-10T12:02:14.330Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"MGLU3: Cotação R$ 7.15"}
+{"timestamp":"2026-05-10T12:02:16.485Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"MNPR3: Cotação R$ 3.91"}
+{"timestamp":"2026-05-10T12:02:18.625Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"MOVI3: Cotação R$ 11.74"}
+{"timestamp":"2026-05-10T12:02:20.699Z","tipo":"warning","modulo":"COLETA-AUTO","mensagem":"MRFG3: Cotação indisponível"}
+{"timestamp":"2026-05-10T12:02:20.814Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"MRVE3: Cotação R$ 6.69"}
+{"timestamp":"2026-05-10T12:02:22.963Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"MULT3: Cotação R$ 31.80"}
+{"timestamp":"2026-05-10T12:02:25.079Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"NTCO3: Cotação R$ 10.80"}
+{"timestamp":"2026-05-10T12:02:27.222Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"ONCO3: Cotação R$ 1.26"}
+{"timestamp":"2026-05-10T12:02:29.385Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"PCAR3: Cotação R$ 2.40"}
+{"timestamp":"2026-05-10T12:02:31.533Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"PETR4: Cotação R$ 45.67"}
+{"timestamp":"2026-05-10T12:02:33.683Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"PETZ3: Cotação R$ 4.39"}
+{"timestamp":"2026-05-10T12:02:35.847Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"POMO4: Cotação R$ 6.44"}
+{"timestamp":"2026-05-10T12:02:37.973Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"PRIO3: Cotação R$ 63.27"}
+{"timestamp":"2026-05-10T12:02:40.097Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"PSSA3: Cotação R$ 51.49"}
+{"timestamp":"2026-05-10T12:02:42.238Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"QUAL3: Cotação R$ 1.90"}
+{"timestamp":"2026-05-10T12:02:44.391Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"RADL3: Cotação R$ 20.97"}
+{"timestamp":"2026-05-10T12:02:46.548Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"RAIL3: Cotação R$ 16.93"}
+{"timestamp":"2026-05-10T12:02:48.705Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"RDOR3: Cotação R$ 38.31"}
+{"timestamp":"2026-05-10T12:02:50.831Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"RENT3: Cotação R$ 49.88"}
+{"timestamp":"2026-05-10T12:02:52.977Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"SANB11: Cotação R$ 28.55"}
+{"timestamp":"2026-05-10T12:02:55.095Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"SAPR4: Cotação R$ 8.20"}
+{"timestamp":"2026-05-10T12:02:57.250Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"SBSP3: Cotação R$ 31.13"}
+{"timestamp":"2026-05-10T12:02:59.405Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"SEER3: Cotação R$ 13.47"}
+{"timestamp":"2026-05-10T12:03:01.554Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"SIMH3: Cotação R$ 10.51"}
+{"timestamp":"2026-05-10T12:03:03.718Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"SLCE3: Cotação R$ 17.33"}
+{"timestamp":"2026-05-10T12:03:05.888Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"SMTO3: Cotação R$ 16.80"}
+{"timestamp":"2026-05-10T12:03:08.035Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"STBP3: Cotação R$ 14.42"}
+{"timestamp":"2026-05-10T12:03:10.186Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"SUZB3: Cotação R$ 43.70"}
+{"timestamp":"2026-05-10T12:03:12.340Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"TAEE11: Cotação R$ 40.96"}
+{"timestamp":"2026-05-10T12:03:14.497Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"TIMS3: Cotação R$ 23.33"}
+{"timestamp":"2026-05-10T12:03:16.664Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"TOTS3: Cotação R$ 35.21"}
+{"timestamp":"2026-05-10T12:03:18.819Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"TUPY3: Cotação R$ 14.59"}
+{"timestamp":"2026-05-10T12:03:20.954Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"UGPA3: Cotação R$ 30.16"}
+{"timestamp":"2026-05-10T12:03:23.098Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"UNIP6: Cotação R$ 62.39"}
+{"timestamp":"2026-05-10T12:03:25.229Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"USIM5: Cotação R$ 8.99"}
+{"timestamp":"2026-05-10T12:03:27.363Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"VALE3: Cotação R$ 81.49"}
+{"timestamp":"2026-05-10T12:03:29.511Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"VBBR3: Cotação R$ 33.80"}
+{"timestamp":"2026-05-10T12:03:31.639Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"VIVT3: Cotação R$ 38.36"}
+{"timestamp":"2026-05-10T12:03:33.779Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"VSTE3: Cotação R$ 3.83"}
+{"timestamp":"2026-05-10T12:03:35.908Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"VULC3: Cotação R$ 16.10"}
+{"timestamp":"2026-05-10T12:03:38.047Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"WEGE3: Cotação R$ 45.52"}
+{"timestamp":"2026-05-10T12:03:40.223Z","tipo":"success","modulo":"COLETA-AUTO","mensagem":"YDUQ3: Cotação R$ 10.96"}
+{"timestamp":"2026-05-10T12:03:42.238Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"Coleta diária concluída","detalhes":{"total":106,"sucessos":103,"erros":0,"jaColetados":0}}
+{"timestamp":"2026-05-10T15:00:00.576Z","tipo":"info","modulo":"CRON","mensagem":"Verificando dados trimestrais (a cada 3h)"}
+{"timestamp":"2026-05-10T15:00:00.579Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"Iniciando verificação de dados trimestrais"}
+{"timestamp":"2026-05-10T15:00:00.589Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"106 empresas ativas para verificar"}
+{"timestamp":"2026-05-10T15:00:00.769Z","tipo":"warning","modulo":"COLETA-AUTO","mensagem":"ELET3: Dados trimestrais indisponíveis"}
+{"timestamp":"2026-05-10T15:00:00.840Z","tipo":"warning","modulo":"COLETA-AUTO","mensagem":"EMBR3: Dados trimestrais indisponíveis"}
+{"timestamp":"2026-05-10T15:00:00.940Z","tipo":"warning","modulo":"COLETA-AUTO","mensagem":"MRFG3: Dados trimestrais indisponíveis"}
+{"timestamp":"2026-05-10T15:00:01.003Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"Verificação trimestral concluída","detalhes":{"total":106,"sucessos":0,"erros":0,"jaAtualizados":103}}
+{"timestamp":"2026-05-10T18:00:00.686Z","tipo":"info","modulo":"CRON","mensagem":"Verificando dados trimestrais (a cada 3h)"}
+{"timestamp":"2026-05-10T18:00:00.688Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"Iniciando verificação de dados trimestrais"}
+{"timestamp":"2026-05-10T18:00:00.693Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"106 empresas ativas para verificar"}
+{"timestamp":"2026-05-10T18:00:00.770Z","tipo":"info","modulo":"COLETA-AUTO","mensagem":"Verificação trimestral concluída","detalhes":{"total":106,"sucessos":0,"erros":0,"jaAtualizados":106}}

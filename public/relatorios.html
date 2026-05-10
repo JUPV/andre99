@@ -5,11 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Relatórios e Logs - Fundamentus</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="relatorios.css">
 </head>
 
 <body>
-  <div class="layout">
+  <div class="app-container">
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
@@ -58,109 +58,116 @@
 
     <!-- Conteúdo Principal -->
     <main class="main-content" id="mainContent">
-      <!-- Toggle Menu -->
-      <button class="toggle-menu" onclick="toggleMenu()" id="toggleBtn">
-        <span id="menuIcon">☰</span>
-        <span id="menuText">Ocultar Menu</span>
-      </button>
-
-      <!-- Header -->
-      <div class="page-header">
-        <div>
-          <h1>📄 Relatórios e Logs do Sistema</h1>
-          <p>Monitoramento em tempo real do funcionamento e erros</p>
+      <div class="topbar">
+        <div class="topbar-left">
+          <button class="toggle-menu" onclick="toggleMenu()" id="toggleBtn">
+            <span id="menuIcon">☰</span>
+          </button>
+          <div class="page-header">
+            <div>
+              <h1>📄 Relatórios e Logs do Sistema</h1>
+              <p>Monitoramento em tempo real do funcionamento e erros</p>
+            </div>
+          </div>
         </div>
         <button class="btn btn-primary" onclick="atualizarTudo()">🔄 Atualizar</button>
       </div>
 
-      <!-- Cards de Saúde -->
-      <div class="stats-grid" style="margin-bottom: 2rem;">
-        <div class="stat-card" id="statusSistema">
-          <div class="stat-icon" id="statusIcon">⏳</div>
-          <div class="stat-info">
-            <div class="stat-label">Status do Sistema</div>
-            <div class="stat-value" id="statusValue">Carregando...</div>
-          </div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon">📊</div>
-          <div class="stat-info">
-            <div class="stat-label">Total de Logs</div>
-            <div class="stat-value" id="totalLogs">-</div>
-          </div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon" style="color: #EF4444;">❌</div>
-          <div class="stat-info">
-            <div class="stat-label">Erros (24h)</div>
-            <div class="stat-value" id="erros24h">-</div>
-          </div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon" style="color: #10B981;">✅</div>
-          <div class="stat-info">
-            <div class="stat-label">Taxa de Sucesso</div>
-            <div class="stat-value" id="taxaSucesso">-</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Filtros -->
-      <div class="card" style="margin-bottom: 2rem;">
-        <div class="card-header">
-          <h2>🔍 Filtros</h2>
-        </div>
-        <div class="card-body">
-          <div class="filters-row">
-            <div class="filter-group">
-              <label>Tipo de Log</label>
-              <select id="filtroTipo" class="select" onchange="carregarLogs()">
-                <option value="">Todos</option>
-                <option value="info">ℹ️ Informação</option>
-                <option value="success">✅ Sucesso</option>
-                <option value="warning">⚠️ Aviso</option>
-                <option value="error">❌ Erro</option>
-              </select>
+      <div class="content-area">
+        <!-- Cards de Saúde -->
+        <div class="stats-grid">
+          <div class="stat-card" id="statusSistema">
+            <div class="stat-header">
+              <div class="stat-icon" id="statusIcon">⏳</div>
+              <div class="stat-info">
+                <div class="stat-label">Status do Sistema</div>
+                <div class="stat-value" id="statusValue">Carregando...</div>
+              </div>
             </div>
+          </div>
 
-            <div class="filter-group">
-              <label>Limite</label>
-              <select id="filtroLimite" class="select" onchange="carregarLogs()">
-                <option value="50">50 registros</option>
-                <option value="100" selected>100 registros</option>
-                <option value="200">200 registros</option>
-                <option value="500">500 registros</option>
-              </select>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon">📊</div>
+              <div class="stat-info">
+                <div class="stat-label">Total de Logs</div>
+                <div class="stat-value" id="totalLogs">-</div>
+              </div>
             </div>
+          </div>
 
-            <div class="filter-group">
-              <label>&nbsp;</label>
-              <button class="btn btn-outline" onclick="limparFiltros()">Limpar Filtros</button>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon danger">❌</div>
+              <div class="stat-info">
+                <div class="stat-label">Erros (24h)</div>
+                <div class="stat-value" id="erros24h">-</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon success">✅</div>
+              <div class="stat-info">
+                <div class="stat-label">Taxa de Sucesso</div>
+                <div class="stat-value" id="taxaSucesso">-</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Estatísticas Detalhadas -->
-      <div class="card" style="margin-bottom: 2rem;">
-        <div class="card-header">
-          <h2>📈 Estatísticas Detalhadas</h2>
-        </div>
-        <div class="card-body">
-          <div id="estatisticasDetalhadas">Carregando...</div>
-        </div>
-      </div>
+        <!-- Filtros -->
+        <div class="card">
+          <div class="card-header">
+            <h2>🔍 Filtros</h2>
+          </div>
+          <div class="card-body">
+            <div class="filters-grid">
+              <div class="filter-group">
+                <label class="filter-label">Tipo de Log</label>
+                <select id="filtroTipo" class="filter-select" onchange="carregarLogs()">
+                  <option value="">Todos</option>
+                  <option value="info">ℹ️ Informação</option>
+                  <option value="success">✅ Sucesso</option>
+                  <option value="warning">⚠️ Aviso</option>
+                  <option value="error">❌ Erro</option>
+                </select>
+              </div>
 
-      <!-- Tabela de Logs -->
-      <div class="card">
-        <div class="card-header">
-          <h2>📋 Logs do Sistema</h2>
+              <div class="filter-group">
+                <label class="filter-label">Limite</label>
+                <select id="filtroLimite" class="filter-select" onchange="carregarLogs()">
+                  <option value="50">50 registros</option>
+                  <option value="100" selected>100 registros</option>
+                  <option value="200">200 registros</option>
+                  <option value="500">500 registros</option>
+                </select>
+              </div>
+
+              <div class="filter-group" style="justify-content: flex-end;">
+                <button class="btn btn-outline" onclick="limparFiltros()">Limpar Filtros</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="card-body">
-          <div style="overflow-x: auto;">
+
+        <!-- Estatísticas Detalhadas -->
+        <div class="card">
+          <div class="card-header">
+            <h2>📈 Estatísticas Detalhadas</h2>
+          </div>
+          <div class="card-body">
+            <div id="estatisticasDetalhadas">Carregando...</div>
+          </div>
+        </div>
+
+        <!-- Tabela de Logs -->
+        <div class="card">
+          <div class="card-header">
+            <h2>📋 Logs do Sistema</h2>
+          </div>
+          <div class="card-body table-wrapper">
             <table id="tabelaLogs">
               <thead>
                 <tr>

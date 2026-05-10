@@ -2,14 +2,29 @@
 function toggleMenu() {
   const sidebar = document.getElementById('sidebar');
   const mainContent = document.getElementById('mainContent');
-  const toggleBtn = document.getElementById('toggleBtn');
 
   sidebar.classList.toggle('collapsed');
   mainContent.classList.toggle('expanded');
 
   const isCollapsed = sidebar.classList.contains('collapsed');
   document.getElementById('menuIcon').textContent = isCollapsed ? '☰' : '✕';
-  document.getElementById('menuText').textContent = isCollapsed ? 'Mostrar Menu' : 'Ocultar Menu';
+
+  // Salva o estado do menu no localStorage
+  localStorage.setItem('menuCollapsed', isCollapsed);
+}
+
+// Verifica o estado do menu no carregamento da página
+function checkMenuState() {
+  const isCollapsed = localStorage.getItem('menuCollapsed') === 'true';
+  if (isCollapsed) {
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+    sidebar.classList.add('collapsed');
+    mainContent.classList.add('expanded');
+    document.getElementById('menuIcon').textContent = '☰';
+  } else {
+    document.getElementById('menuIcon').textContent = '✕';
+  }
 }
 
 // Formatar data/hora
@@ -213,6 +228,7 @@ async function atualizarTudo() {
 
 // Carregar dados ao iniciar
 document.addEventListener('DOMContentLoaded', async () => {
+  checkMenuState();
   await atualizarTudo();
 
   // Auto-atualizar a cada 30 segundos
