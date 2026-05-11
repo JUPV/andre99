@@ -312,9 +312,33 @@ router.get('/comparativo-trimestral', async (req, res) => {
   try {
     const empresas = await empresaRepository.listarTodas();
 
+    const pontuarRegistro = (dado: any) => {
+      const campos = [
+        dado.receitaLiquida3m,
+        dado.ebit3m,
+        dado.lucroLiquido3m,
+        dado.receitaLiquida12m,
+        dado.ebit12m,
+        dado.lucroLiquido12m,
+      ];
+
+      const preenchidos = campos.filter((valor) => valor !== null && valor !== undefined).length;
+      const bonusReceita3m = dado.receitaLiquida3m !== null && dado.receitaLiquida3m !== undefined ? 100 : 0;
+
+      return bonusReceita3m + preenchidos;
+    };
+
+    const ehDataInicioTrimestre = (dataBalanco: string) => {
+      const partes = dataBalanco.split('-');
+      if (partes.length !== 3) return false;
+      const mes = Number(partes[1]);
+      const dia = Number(partes[2]);
+      return dia === 1 && [1, 4, 7, 10].includes(mes);
+    };
+
     const resultado = await Promise.all(empresas.map(async (empresa) => {
-      // Buscar todos os dados trimestrais da empresa (últimos 8 trimestres = 2 anos)
-      const trimestrais = await dadosTrimestraisRepository.buscarPorEmpresa(empresa.id!, 8);
+      // Busca ampla para não cortar trimestres quando houver datas legadas duplicadas.
+      const trimestrais = await dadosTrimestraisRepository.buscarPorEmpresa(empresa.id!, 40);
 
       // Buscar último dado diário para P/L e EV/EBITDA
       const ultimoDiario = await dadosDiariosRepository.buscarUltimo(empresa.id!);
@@ -333,9 +357,12 @@ router.get('/comparativo-trimestral', async (req, res) => {
 
       // Processar cada dado trimestral
       trimestrais.forEach(dado => {
-        const data = new Date(dado.dataBalanco);
-        const ano = data.getFullYear();
-        const mes = data.getMonth() + 1;
+        const partesData = dado.dataBalanco.split('-');
+        if (partesData.length < 2) return;
+
+        const ano = Number(partesData[0]);
+        const mes = Number(partesData[1]);
+        if (!Number.isFinite(ano) || !Number.isFinite(mes)) return;
 
         // Determinar trimestre (1T, 2T, 3T, 4T)
         let trimestre = '';
@@ -344,9 +371,9 @@ router.get('/comparativo-trimestral', async (req, res) => {
         else if (mes <= 9) trimestre = '3T';
         else trimestre = '4T';
 
-        const chave = `${trimestre}${ano.toString().slice(-2)}`;
+        const chave = `${trimestre}${String(ano).slice(-2)}`;
 
-        dadosOrganizados.trimestres[chave] = {
+        const candidato = {
           lucroLiquido3m: dado.lucroLiquido3m,
           lucroLiquido12m: dado.lucroLiquido12m,
           receitaLiquida3m: dado.receitaLiquida3m,
@@ -355,21 +382,30 @@ router.get('/comparativo-trimestral', async (req, res) => {
           ebit12m: dado.ebit12m,
           dataBalanco: dado.dataBalanco
         };
-      });
 
-      // Adicionar dados mais recentes como "1T Online"
-      if (trimestrais.length > 0) {
-        const ultimo = trimestrais[0];
-        dadosOrganizados.online = {
-          lucroLiquido3m: ultimo.lucroLiquido3m,
-          lucroLiquido12m: ultimo.lucroLiquido12m,
-          receitaLiquida3m: ultimo.receitaLiquida3m,
-          receitaLiquida12m: ultimo.receitaLiquida12m,
-          ebit3m: ultimo.ebit3m,
-          ebit12m: ultimo.ebit12m,
-          dataBalanco: ultimo.dataBalanco
-        };
-      }
+        const atual = dadosOrganizados.trimestres[chave];
+        if (!atual) {
+          dadosOrganizados.trimestres[chave] = candidato;
+          return;
+        }
+
+        const scoreAtual = pontuarRegistro(atual);
+        const scoreCandidato = pontuarRegistro(candidato);
+
+        if (scoreCandidato > scoreAtual) {
+          dadosOrganizados.trimestres[chave] = candidato;
+          return;
+        }
+
+        if (scoreCandidato === scoreAtual) {
+          const atualInicio = ehDataInicioTrimestre(atual.dataBalanco);
+          const candidatoInicio = ehDataInicioTrimestre(candidato.dataBalanco);
+
+          if (candidatoInicio && !atualInicio) {
+            dadosOrganizados.trimestres[chave] = candidato;
+          }
+        }
+      });
 
       return dadosOrganizados;
     }));
@@ -631,6 +667,202 @@ router.get('/relatorios/saude', async (req, res) => {
       status: 'critico',
       error: 'Erro ao verificar saúde do sistema',
       timestamp: new Date().toISOString()
+    });
+  }
+});
+
+// ============= STATUS INVEST IMPORTAÇÃO =============
+
+// Preview de dados trimestrais do Status Invest (últimos 5 anos)
+router.get('/empresas/:codigo/preview-status-invest', async (req, res) => {
+  try {
+    const codigo = req.params.codigo.toUpperCase();
+
+    // Importar o scraper do Status Invest
+    const { buscarDadosTrimestraisStatusInvest } = await import('../scrapers/statusinvest-scraper');
+
+    const resultado = await buscarDadosTrimestraisStatusInvest(codigo);
+
+    if (!resultado.sucesso) {
+      return res.status(404).json({
+        error: 'Dados não encontrados',
+        detalhes: resultado.erro
+      });
+    }
+
+    // Filtrar apenas últimos 5 anos (20 trimestres)
+    const dataLimite = new Date();
+    dataLimite.setFullYear(dataLimite.getFullYear() - 5);
+
+    const dadosFiltrados = resultado.dados.filter(dado => {
+      const dataDado = new Date(dado.year, (dado.quarter - 1) * 3, 1);
+      return dataDado >= dataLimite;
+    });
+
+    res.json({
+      sucesso: true,
+      codigo,
+      totalTrimestres: dadosFiltrados.length,
+      dados: dadosFiltrados
+    });
+  } catch (error: any) {
+    console.error('Erro ao buscar preview Status Invest:', error);
+    res.status(500).json({
+      error: 'Erro ao buscar dados do Status Invest',
+      detalhes: error.message
+    });
+  }
+});
+
+// Importar e salvar dados trimestrais do Status Invest
+router.post('/empresas/:codigo/importar-trimestrais', async (req, res) => {
+  try {
+    const codigo = req.params.codigo.toUpperCase();
+    const empresa = await empresaRepository.buscarPorCodigo(codigo);
+
+    if (!empresa) {
+      return res.status(404).json({ error: 'Empresa não encontrada' });
+    }
+
+    const { dados } = req.body;
+
+    if (!dados || !Array.isArray(dados)) {
+      return res.status(400).json({ error: 'Dados inválidos' });
+    }
+
+    let salvos = 0;
+    let atualizados = 0;
+    let erros = 0;
+
+    for (const dado of dados) {
+      try {
+        // Calcular data do balanço (último dia do trimestre)
+        const ano = dado.year;
+        const mesUltimoDiaTrimestre = dado.quarter * 3;
+        const ultimoDiaTrimestre = new Date(ano, mesUltimoDiaTrimestre, 0).getDate();
+        const dataBalanco = `${ano}-${String(mesUltimoDiaTrimestre).padStart(2, '0')}-${String(ultimoDiaTrimestre).padStart(2, '0')}`;
+
+        const dadoParaSalvar = {
+          empresaId: empresa.id!,
+          dataBalanco,
+          ano,
+          trimestre: dado.quarter,
+          receitaLiquida3m: dado.receitaLiquida || null,
+          lucroLiquido3m: dado.lucroLiquido || null,
+          despesas: dado.despesas || null,
+          margemBruta: dado.margemBruta || null,
+          margemEbitda: dado.margemEbitda || null,
+          margemEbit: dado.margemEbit || null,
+          margemLiquida: dado.margemLiquida || null,
+          // Campos 12m vazios por enquanto
+          receitaLiquida12m: null,
+          ebit12m: null,
+          lucroLiquido12m: null,
+          ebit3m: null
+        };
+
+        // Upsert (criar ou atualizar)
+        const resultado = await prisma.dadosTrimestral.upsert({
+          where: {
+            empresaId_dataBalanco: {
+              empresaId: empresa.id!,
+              dataBalanco
+            }
+          },
+          update: dadoParaSalvar,
+          create: dadoParaSalvar
+        });
+
+        if (resultado) {
+          // Verificar se foi update ou create checando se já existia
+          const jaExistia = await prisma.dadosTrimestral.count({
+            where: {
+              empresaId: empresa.id!,
+              dataBalanco,
+              id: { not: resultado.id }
+            }
+          });
+
+          if (jaExistia > 0) {
+            atualizados++;
+          } else {
+            salvos++;
+          }
+        }
+      } catch (error) {
+        console.error(`Erro ao salvar trimestre ${dado.quarter}/${dado.year}:`, error);
+        erros++;
+      }
+    }
+
+    res.json({
+      sucesso: true,
+      codigo,
+      salvos,
+      atualizados,
+      erros,
+      total: dados.length
+    });
+  } catch (error: any) {
+    console.error('Erro ao importar dados trimestrais:', error);
+    res.status(500).json({
+      error: 'Erro ao importar dados',
+      detalhes: error.message
+    });
+  }
+});
+
+// Atualizar um dado trimestral específico
+router.put('/dados-trimestrais/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const {
+      receitaLiquida3m,
+      lucroLiquido3m,
+      despesas,
+      margemBruta,
+      margemEbitda,
+      margemEbit,
+      margemLiquida,
+      ebit3m,
+      receitaLiquida12m,
+      ebit12m,
+      lucroLiquido12m
+    } = req.body;
+
+    // Verificar se o dado existe
+    const dadoExistente = await prisma.dadosTrimestral.findUnique({
+      where: { id }
+    });
+
+    if (!dadoExistente) {
+      return res.status(404).json({ error: 'Dado trimestral não encontrado' });
+    }
+
+    // Atualizar apenas os campos fornecidos
+    const dadoAtualizado = await prisma.dadosTrimestral.update({
+      where: { id },
+      data: {
+        receitaLiquida3m: receitaLiquida3m !== undefined ? receitaLiquida3m : dadoExistente.receitaLiquida3m,
+        lucroLiquido3m: lucroLiquido3m !== undefined ? lucroLiquido3m : dadoExistente.lucroLiquido3m,
+        despesas: despesas !== undefined ? despesas : dadoExistente.despesas,
+        margemBruta: margemBruta !== undefined ? margemBruta : dadoExistente.margemBruta,
+        margemEbitda: margemEbitda !== undefined ? margemEbitda : dadoExistente.margemEbitda,
+        margemEbit: margemEbit !== undefined ? margemEbit : dadoExistente.margemEbit,
+        margemLiquida: margemLiquida !== undefined ? margemLiquida : dadoExistente.margemLiquida,
+        ebit3m: ebit3m !== undefined ? ebit3m : dadoExistente.ebit3m,
+        receitaLiquida12m: receitaLiquida12m !== undefined ? receitaLiquida12m : dadoExistente.receitaLiquida12m,
+        ebit12m: ebit12m !== undefined ? ebit12m : dadoExistente.ebit12m,
+        lucroLiquido12m: lucroLiquido12m !== undefined ? lucroLiquido12m : dadoExistente.lucroLiquido12m
+      }
+    });
+
+    res.json(dadoAtualizado);
+  } catch (error: any) {
+    console.error('Erro ao atualizar dado trimestral:', error);
+    res.status(500).json({
+      error: 'Erro ao atualizar dado',
+      detalhes: error.message
     });
   }
 });

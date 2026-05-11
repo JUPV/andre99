@@ -318,6 +318,36 @@
                 <option value="reais">Reais (R$)</option>
               </select>
             </div>
+
+            <div class="filter-group">
+              <label>Ano para Ver</label>
+              <select id="anoAtual" class="select" onchange="atualizarTabela()"></select>
+            </div>
+
+            <div class="filter-group">
+              <label>Ano para Comparar</label>
+              <select id="anoComparacao" class="select" onchange="atualizarTabela()"></select>
+            </div>
+
+            <div class="filter-group">
+              <label>Ranking</label>
+              <select id="rankingTipo" class="select" onchange="atualizarTabela()">
+                <option value="todos">Todos</option>
+                <option value="melhores">Melhores</option>
+                <option value="piores">Piores</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Trimestre do Ranking</label>
+              <select id="rankingTrimestre" class="select" onchange="atualizarTabela()">
+                <option value="anual">Anual</option>
+                <option value="1T">1T</option>
+                <option value="2T">2T</option>
+                <option value="3T">3T</option>
+                <option value="4T">4T</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
@@ -333,29 +363,28 @@
               <thead>
                 <tr>
                   <th class="col-empresa">EMPRESA</th>
-                  <th class="col-online">1T Online</th>
-                  <th class="col-trimestre">1T26</th>
-                  <th class="col-trimestre">1T25</th>
-                  <th class="col-variacao">AH% 1T26-1T25</th>
-                  <th class="col-trimestre">2T25</th>
-                  <th class="col-trimestre">2T24</th>
-                  <th class="col-variacao">AH% 2T25-2T24</th>
-                  <th class="col-trimestre">3T25</th>
-                  <th class="col-trimestre">3T24</th>
-                  <th class="col-variacao">AH% 3T25-3T24</th>
-                  <th class="col-trimestre">4T25</th>
-                  <th class="col-trimestre">4T24</th>
-                  <th class="col-variacao">AH% 4T25-4T24</th>
-                  <th class="col-anual">2025</th>
-                  <th class="col-anual">2024</th>
-                  <th class="col-variacao">AH% 25-24</th>
+                  <th class="col-trimestre" id="h1Atual">1T Atual</th>
+                  <th class="col-trimestre" id="h1Comparacao">1T Comparação</th>
+                  <th class="col-variacao" id="hVar1">AH% 1T</th>
+                  <th class="col-trimestre" id="h2Atual">2T Atual</th>
+                  <th class="col-trimestre" id="h2Comparacao">2T Comparação</th>
+                  <th class="col-variacao" id="hVar2">AH% 2T</th>
+                  <th class="col-trimestre" id="h3Atual">3T Atual</th>
+                  <th class="col-trimestre" id="h3Comparacao">3T Comparação</th>
+                  <th class="col-variacao" id="hVar3">AH% 3T</th>
+                  <th class="col-trimestre" id="h4Atual">4T Atual</th>
+                  <th class="col-trimestre" id="h4Comparacao">4T Comparação</th>
+                  <th class="col-variacao" id="hVar4">AH% 4T</th>
+                  <th class="col-anual" id="hTotalAtual">Total Atual</th>
+                  <th class="col-anual" id="hTotalComparacao">Total Comparação</th>
+                  <th class="col-variacao" id="hVarAnual">AH% Anual</th>
                   <th class="col-indicador">P/L</th>
                   <th class="col-indicador">EV/Ebitda</th>
                 </tr>
               </thead>
               <tbody id="corpoTabela">
                 <tr>
-                  <td colspan="19" class="loading">
+                  <td colspan="18" class="loading">
                     <div>Carregando dados...</div>
                   </td>
                 </tr>

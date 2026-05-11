@@ -55,6 +55,28 @@
     .toggle-menu.menu-hidden {
       left: 1rem;
     }
+
+    /* Button Icon for Edit */
+    .btn-icon {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+
+    .btn-icon:hover {
+      background: var(--bg-secondary);
+      border-color: var(--primary);
+      transform: scale(1.1);
+    }
+
+    .btn-icon:active {
+      transform: scale(0.95);
+    }
   </style>
 </head>
 
@@ -193,11 +215,12 @@
                   <th class="text-right">EBIT 12M</th>
                   <th class="text-right">Lucro 12M</th>
                   <th class="text-right">Margem</th>
+                  <th class="text-center">Ações</th>
                 </tr>
               </thead>
               <tbody id="tabelaTrimestrais">
                 <tr>
-                  <td colspan="8" class="text-center">Carregando dados...</td>
+                  <td colspan="9" class="text-center">Carregando dados...</td>
                 </tr>
               </tbody>
             </table>
@@ -235,6 +258,105 @@
         </div>
       </div>
     </main>
+  </div>
+
+  <!-- Modal de Edição de Dados Trimestrais -->
+  <div id="modalEdicao"
+    style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center;">
+    <div
+      style="background: var(--bg-secondary); border-radius: 12px; width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; border: 1px solid var(--border-color);">
+      <div
+        style="padding: 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="margin: 0; font-size: 1.25rem;">✏️ Editar Dados Trimestrais</h2>
+        <button onclick="fecharModalEdicao()"
+          style="background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; padding: 0; line-height: 1;">×</button>
+      </div>
+
+      <div style="padding: 1.5rem;">
+        <div style="margin-bottom: 1.5rem; padding: 0.75rem; background: var(--bg-primary); border-radius: 6px;">
+          <strong>Data do Balanço:</strong> <span id="editDataBalanco"></span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <!-- Dados 3 Meses -->
+          <div>
+            <h3 style="font-size: 1rem; margin-bottom: 1rem; color: var(--text-muted);">📊 Dados de 3 Meses</h3>
+
+            <div class="form-group">
+              <label class="form-label">Receita Líquida 3m (R$)</label>
+              <input type="number" class="form-input" id="editReceitaLiquida3m" step="0.01">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">EBIT 3m (R$)</label>
+              <input type="number" class="form-input" id="editEbit3m" step="0.01">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Lucro Líquido 3m (R$)</label>
+              <input type="number" class="form-input" id="editLucroLiquido3m" step="0.01">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Despesas (R$)</label>
+              <input type="number" class="form-input" id="editDespesas" step="0.01">
+            </div>
+          </div>
+
+          <!-- Dados 12 Meses -->
+          <div>
+            <h3 style="font-size: 1rem; margin-bottom: 1rem; color: var(--text-muted);">📈 Dados de 12 Meses</h3>
+
+            <div class="form-group">
+              <label class="form-label">Receita Líquida 12m (R$)</label>
+              <input type="number" class="form-input" id="editReceitaLiquida12m" step="0.01">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">EBIT 12m (R$)</label>
+              <input type="number" class="form-input" id="editEbit12m" step="0.01">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Lucro Líquido 12m (R$)</label>
+              <input type="number" class="form-input" id="editLucroLiquido12m" step="0.01">
+            </div>
+          </div>
+
+          <!-- Margens -->
+          <div style="grid-column: 1 / -1;">
+            <h3 style="font-size: 1rem; margin-bottom: 1rem; color: var(--text-muted);">📊 Margens (%)</h3>
+
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+              <div class="form-group">
+                <label class="form-label">Margem Bruta</label>
+                <input type="number" class="form-input" id="editMargemBruta" step="0.01">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Margem EBITDA</label>
+                <input type="number" class="form-input" id="editMargemEbitda" step="0.01">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Margem EBIT</label>
+                <input type="number" class="form-input" id="editMargemEbit" step="0.01">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Margem Líquida</label>
+                <input type="number" class="form-input" id="editMargemLiquida" step="0.01">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: flex-end;">
+          <button onclick="fecharModalEdicao()" class="btn btn-outline">Cancelar</button>
+          <button onclick="salvarEdicaoTrimestral()" class="btn btn-primary" id="btnSalvarEdicao">💾 Salvar</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="empresa-detalhes.js"></script>

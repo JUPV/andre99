@@ -60,7 +60,7 @@ function renderizarTabelaTrimestrais(trimestrais) {
   const tbody = document.getElementById('tabelaTrimestrais');
 
   if (trimestrais.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="8" class="text-center">Nenhum dado trimestral disponível</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="9" class="text-center">Nenhum dado trimestral disponível</td></tr>';
     return;
   }
 
@@ -79,6 +79,11 @@ function renderizarTabelaTrimestrais(trimestrais) {
                 <td class="text-right">${formatarMilhoes(dado.lucroLiquido12m)}</td>
                 <td class="text-right ${margem >= 0 ? 'text-success' : 'text-danger'}">
                     ${formatarPercentual(margem)}
+                </td>
+                <td class="text-center">
+                    <button onclick="abrirModalEdicao(${dado.id})" class="btn-icon" title="Editar trimestre">
+                        ✏️
+                    </button>
                 </td>
             </tr>
         `;
@@ -259,6 +264,88 @@ function formatarData(data) {
   if (!data) return '-';
   const date = new Date(data);
   return date.toLocaleDateString('pt-BR');
+}
+
+// Modal de edição de dados trimestrais
+let dadoEmEdicao = null;
+
+function abrirModalEdicao(idTrimestral) {
+  const dado = dadosEmpresa.trimestrais.find(t => t.id === idTrimestral);
+  if (!dado) {
+    alert('Dado não encontrado');
+    return;
+  }
+
+  dadoEmEdicao = dado;
+
+  // Preencher campos do modal
+  document.getElementById('editDataBalanco').textContent = formatarData(dado.dataBalanco);
+  document.getElementById('editReceitaLiquida3m').value = dado.receitaLiquida3m || '';
+  document.getElementById('editLucroLiquido3m').value = dado.lucroLiquido3m || '';
+  document.getElementById('editDespesas').value = dado.despesas || '';
+  document.getElementById('editMargemBruta').value = dado.margemBruta || '';
+  document.getElementById('editMargemEbitda').value = dado.margemEbitda || '';
+  document.getElementById('editMargemEbit').value = dado.margemEbit || '';
+  document.getElementById('editMargemLiquida').value = dado.margemLiquida || '';
+  document.getElementById('editEbit3m').value = dado.ebit3m || '';
+  document.getElementById('editReceitaLiquida12m').value = dado.receitaLiquida12m || '';
+  document.getElementById('editEbit12m').value = dado.ebit12m || '';
+  document.getElementById('editLucroLiquido12m').value = dado.lucroLiquido12m || '';
+
+  // Mostrar modal
+  document.getElementById('modalEdicao').style.display = 'flex';
+}
+
+function fecharModalEdicao() {
+  document.getElementById('modalEdicao').style.display = 'none';
+  dadoEmEdicao = null;
+}
+
+async function salvarEdicaoTrimestral() {
+  if (!dadoEmEdicao) return;
+
+  const dados = {
+    receitaLiquida3m: parseFloat(document.getElementById('editReceitaLiquida3m').value) || null,
+    lucroLiquido3m: parseFloat(document.getElementById('editLucroLiquido3m').value) || null,
+    despesas: parseFloat(document.getElementById('editDespesas').value) || null,
+    margemBruta: parseFloat(document.getElementById('editMargemBruta').value) || null,
+    margemEbitda: parseFloat(document.getElementById('editMargemEbitda').value) || null,
+    margemEbit: parseFloat(document.getElementById('editMargemEbit').value) || null,
+    margemLiquida: parseFloat(document.getElementById('editMargemLiquida').value) || null,
+    ebit3m: parseFloat(document.getElementById('editEbit3m').value) || null,
+    receitaLiquida12m: parseFloat(document.getElementById('editReceitaLiquida12m').value) || null,
+    ebit12m: parseFloat(document.getElementById('editEbit12m').value) || null,
+    lucroLiquido12m: parseFloat(document.getElementById('editLucroLiquido12m').value) || null
+  };
+
+  try {
+    const btnSalvar = document.getElementById('btnSalvarEdicao');
+    btnSalvar.disabled = true;
+    btnSalvar.textContent = 'Salvando...';
+
+    const response = await fetch(`/api/dados-trimestrais/${dadoEmEdicao.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados)
+    });
+
+    if (!response.ok) {
+      throw new Error('Erro ao salvar');
+    }
+
+    alert('✅ Dados atualizados com sucesso!');
+    fecharModalEdicao();
+
+    // Recarregar dados
+    await carregarDados();
+  } catch (error) {
+    console.error('Erro ao salvar edição:', error);
+    alert('❌ Erro ao salvar: ' + error.message);
+  } finally {
+    const btnSalvar = document.getElementById('btnSalvarEdicao');
+    btnSalvar.disabled = false;
+    btnSalvar.textContent = '💾 Salvar';
+  }
 }
 
 // Carregar dados ao iniciar

@@ -142,6 +142,57 @@
               <div class="form-help">Busca os dados mais recentes do Fundamentus agora</div>
             </div>
 
+            <div class="form-group">
+              <div class="checkbox-group">
+                <input type="checkbox" class="checkbox-input" id="importarTrimestrais">
+                <label class="checkbox-label" for="importarTrimestrais">
+                  Importar dados trimestrais dos últimos 5 anos (Status Invest)
+                </label>
+              </div>
+              <div class="form-help">Busca dados financeiros trimestrais para análise histórica</div>
+            </div>
+
+            <!-- Preview dos dados trimestrais -->
+            <div id="previewContainer"
+              style="display: none; margin-top: 1.5rem; padding: 1rem; background: var(--bg-secondary); border-radius: 8px; border: 1px solid var(--border-color);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h3 style="margin: 0; font-size: 1rem;">📊 Preview dos Dados Trimestrais</h3>
+                <button type="button" class="btn btn-outline" onclick="buscarPreview()" id="btnPreview"
+                  style="padding: 0.5rem 1rem;">
+                  🔍 Buscar Dados
+                </button>
+              </div>
+
+              <div id="previewLoading" style="display: none; text-align: center; padding: 2rem;">
+                <div style="font-size: 2rem;">⏳</div>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">Buscando dados no Status Invest...</p>
+              </div>
+
+              <div id="previewError"
+                style="display: none; padding: 1rem; background: #dc35450d; border: 1px solid #dc3545; border-radius: 6px; color: #dc3545;">
+              </div>
+
+              <div id="previewDados" style="display: none;">
+                <div style="margin-bottom: 1rem; padding: 0.75rem; background: var(--bg-primary); border-radius: 6px;">
+                  <strong id="previewInfo"></strong>
+                </div>
+                <div style="max-height: 300px; overflow-y: auto;">
+                  <table class="data-table" style="width: 100%; font-size: 0.875rem;">
+                    <thead>
+                      <tr>
+                        <th>Trimestre</th>
+                        <th class="text-right">Receita Líq. 3m</th>
+                        <th class="text-right">Lucro Líq. 3m</th>
+                        <th class="text-right">Margem Líq.</th>
+                        <th class="text-right">Margem EBITDA</th>
+                      </tr>
+                    </thead>
+                    <tbody id="previewTbody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
             <div class="form-actions">
               <button type="button" class="btn btn-outline" onclick="window.location.href='empresas.html'">
                 Cancelar
@@ -159,6 +210,7 @@
   <script>
     let modoEdicao = false;
     let codigoOriginal = null;
+    let dadosTrimestraisPreview = null;
 
     document.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
@@ -174,7 +226,92 @@
         document.getElementById('submitBtn').innerHTML = '💾 Salvar Alterações';
         document.getElementById('codigo').disabled = true;
       }
+
+      // Listener para mostrar/ocultar preview
+      document.getElementById('importarTrimestrais').addEventListener('change', (e) => {
+        const container = document.getElementById('previewContainer');
+        if (e.target.checked) {
+          container.style.display = 'block';
+        } else {
+          container.style.display = 'none';
+          limparPreview();
+        }
+      });
     });
+
+    function limparPreview() {
+      dadosTrimestraisPreview = null;
+      document.getElementById('previewDados').style.display = 'none';
+      document.getElementById('previewError').style.display = 'none';
+      document.getElementById('previewLoading').style.display = 'none';
+    }
+
+    async function buscarPreview() {
+      const codigo = document.getElementById('codigo').value.trim().toUpperCase();
+
+      if (!codigo) {
+        alert('Digite o código da empresa primeiro');
+        return;
+      }
+
+      const btnPreview = document.getElementById('btnPreview');
+      const previewLoading = document.getElementById('previewLoading');
+      const previewError = document.getElementById('previewError');
+      const previewDados = document.getElementById('previewDados');
+
+      btnPreview.disabled = true;
+      previewLoading.style.display = 'block';
+      previewError.style.display = 'none';
+      previewDados.style.display = 'none';
+
+      try {
+        const response = await fetch(`/api/empresas/${codigo}/preview-status-invest`);
+        const resultado = await response.json();
+
+        if (!response.ok || !resultado.sucesso) {
+          throw new Error(resultado.error || resultado.detalhes || 'Erro ao buscar dados');
+        }
+
+        dadosTrimestraisPreview = resultado.dados;
+
+        // Mostrar informações
+        document.getElementById('previewInfo').textContent =
+          `✅ ${resultado.totalTrimestres} trimestres encontrados (últimos 5 anos)`;
+
+        // Preencher tabela
+        const tbody = document.getElementById('previewTbody');
+        tbody.innerHTML = resultado.dados.map(dado => `
+          <tr>
+            <td>${dado.quarter}T${dado.year}</td>
+            <td class="text-right">${formatarMilhoes(dado.receitaLiquida)}</td>
+            <td class="text-right">${formatarMilhoes(dado.lucroLiquido)}</td>
+            <td class="text-right">${formatarPercentual(dado.margemLiquida)}</td>
+            <td class="text-right">${formatarPercentual(dado.margemEbitda)}</td>
+          </tr>
+        `).join('');
+
+        previewDados.style.display = 'block';
+      } catch (error) {
+        console.error('Erro ao buscar preview:', error);
+        previewError.textContent = '❌ ' + error.message;
+        previewError.style.display = 'block';
+        dadosTrimestraisPreview = null;
+      } finally {
+        previewLoading.style.display = 'none';
+        btnPreview.disabled = false;
+      }
+    }
+
+    function formatarMilhoes(valor) {
+      if (!valor && valor !== 0) return 'N/A';
+      const milhoes = valor / 1000000;
+      return milhoes.toFixed(2) + ' M';
+    }
+
+    function formatarPercentual(valor) {
+      if (!valor && valor !== 0) return 'N/A';
+      return valor.toFixed(2) + '%';
+    }
 
     async function carregarEmpresa(codigo) {
       try {
@@ -204,9 +341,16 @@
       const subsetor = document.getElementById('subsetor').value.trim();
       const ativo = document.getElementById('ativo').checked;
       const coletarAgora = document.getElementById('coletarAgora').checked;
+      const importarTrimestrais = document.getElementById('importarTrimestrais').checked;
 
       if (!codigo || !nome) {
         alert('Código e Nome são obrigatórios');
+        return;
+      }
+
+      // Se marcou para importar mas não buscou preview
+      if (importarTrimestrais && !dadosTrimestraisPreview) {
+        alert('Clique em "Buscar Dados" para visualizar os dados antes de importar');
         return;
       }
 
@@ -245,6 +389,29 @@
 
         const result = await response.json();
 
+        // Se marcou para importar dados trimestrais
+        if (importarTrimestrais && dadosTrimestraisPreview) {
+          submitBtn.innerHTML = '⏳ Importando dados trimestrais...';
+
+          try {
+            const importResponse = await fetch(`/api/empresas/${codigo}/importar-trimestrais`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ dados: dadosTrimestraisPreview })
+            });
+
+            if (!importResponse.ok) {
+              throw new Error('Erro ao importar dados trimestrais');
+            }
+
+            const importResult = await importResponse.json();
+            console.log('Dados importados:', importResult);
+          } catch (importError) {
+            console.error('Erro na importação:', importError);
+            alert('Empresa salva, mas houve erro ao importar dados trimestrais: ' + importError.message);
+          }
+        }
+
         // Se marcou para coletar agora
         if (coletarAgora && !modoEdicao) {
           submitBtn.innerHTML = '⏳ Coletando dados...';
@@ -259,7 +426,13 @@
           }
         }
 
-        alert(modoEdicao ? 'Empresa atualizada com sucesso!' : 'Empresa cadastrada com sucesso!');
+        const mensagem = modoEdicao ?
+          'Empresa atualizada com sucesso!' :
+          (importarTrimestrais && dadosTrimestraisPreview ?
+            `Empresa cadastrada com sucesso!\n${dadosTrimestraisPreview.length} trimestres importados.` :
+            'Empresa cadastrada com sucesso!');
+
+        alert(mensagem);
         window.location.href = 'empresas.html';
       } catch (error) {
         console.error('Erro ao salvar:', error);

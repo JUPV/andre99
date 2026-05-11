@@ -31,13 +31,20 @@ model DadosTrimestral {
   id          Int    @id @default(autoincrement())
   empresaId   Int    @map("empresa_id")
   dataBalanco String @map("data_balanco") // Formato: YYYY-MM-DD
+  ano         Int?   @map("ano")
+  trimestre   Int?   @map("trimestre")
 
-  // Últimos 3 meses
+  // Dados trimestrais (3 meses)
   receitaLiquida3m Float? @map("receita_liquida_3m")
   ebit3m           Float? @map("ebit_3m")
   lucroLiquido3m   Float? @map("lucro_liquido_3m")
+  despesas         Float?
+  margemBruta      Float? @map("margem_bruta")
+  margemEbitda     Float? @map("margem_ebitda")
+  margemEbit       Float? @map("margem_ebit")
+  margemLiquida    Float? @map("margem_liquida")
 
-  // Últimos 12 meses
+  // Últimos 12 meses (para uso futuro)
   receitaLiquida12m Float? @map("receita_liquida_12m")
   ebit12m           Float? @map("ebit_12m")
   lucroLiquido12m   Float? @map("lucro_liquido_12m")
