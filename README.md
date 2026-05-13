@@ -488,7 +488,57 @@ Abrirá o Prisma Studio em http://localhost:5555
 
 ---
 
-## 🔧 Troubleshooting
+## � Sistema de Coleta Otimizado
+
+O sistema foi **otimizado** para evitar coletas desnecessárias e respeitar intervalos adequados:
+
+### ⏰ Intervalos de Coleta
+
+| Tipo | Frequência | Intervalo | Horários |
+|------|-----------|-----------|----------|
+| **Dados Diários** | 2x/dia | 24 horas | 09:00, 18:00 |
+| **Dados Trimestrais** | Verificação | 90 dias | A cada 3h |
+| **Retry (falhas)** | Automático | 3 horas | - |
+
+### 🎯 Regras Inteligentes
+
+✅ **Não coleta repetidamente** empresas já atualizadas
+
+✅ **Dados diários:** Aguarda 24h após último sucesso
+
+✅ **Dados trimestrais:** Aguarda 90 dias após último sucesso
+
+✅ **Falhas:** Retenta apenas empresas com erro, a cada 3h
+
+✅ **Sem coleta inicial:** Não sobrecarrega ao iniciar servidor
+
+### 🎮 Coleta Manual
+
+**Na Interface:** Botões no perfil de cada empresa
+- 📊 Atualizar Diário
+- 📈 Atualizar Trimestral  
+- 🔄 Atualizar Tudo
+
+**Via API:** `POST /api/coleta/executar`
+```json
+{
+  "tipo": "diario",      // "diario", "trimestral" ou "ambos"
+  "codigo": "PETR4"       // Código da empresa
+}
+```
+
+### 📚 Documentação Completa
+
+Veja todos os detalhes em: **[SISTEMA-COLETA-OTIMIZADO.md](SISTEMA-COLETA-OTIMIZADO.md)**
+
+- Fluxo completo de decisão
+- Monitoramento de logs
+- Configuração de intervalos
+- Troubleshooting específico
+
+---
+
+## �🔧 Troubleshooting
 
 ### Problema: Porta 3000 já está em uso
 

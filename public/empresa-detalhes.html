@@ -6,56 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Detalhes da Empresa - Fundamentus</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="menu-toggle.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
-    /* Toggle Menu Button */
-    .toggle-menu {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      z-index: 1000;
-      background: #1F2937;
-      border: 1px solid #374151;
-      color: #F3F4F6;
-      padding: 0.75rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    }
-
-    .toggle-menu:hover {
-      background: #374151;
-      transform: scale(1.05);
-      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
-    }
-
-    .sidebar {
-      transition: transform 0.3s ease-in-out;
-    }
-
-    .sidebar.collapsed {
-      transform: translateX(-100%);
-    }
-
-    .main-content {
-      transition: all 0.3s ease-in-out;
-    }
-
-    .main-content.expanded {
-      margin-left: 0;
-      width: 100%;
-    }
-
-    .toggle-menu.menu-hidden {
-      left: 1rem;
-    }
-
     /* Button Icon for Edit */
     .btn-icon {
       background: var(--bg-primary);
@@ -127,10 +80,6 @@
             <span class="nav-icon">📈</span>
             <span>Comparativos</span>
           </a>
-          <a href="#" class="nav-item" onclick="alert('Em breve!'); return false;">
-            <span class="nav-icon">📑</span>
-            <span>Relatórios</span>
-          </a>
         </div>
       </nav>
 
@@ -151,9 +100,19 @@
           <h1 id="empresaNome">Carregando...</h1>
           <p id="empresaInfo" class="text-muted"></p>
         </div>
-        <button class="btn btn-primary" onclick="forcarColeta()">
-          🔄 Atualizar Dados
-        </button>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="btn btn-outline" onclick="forcarColeta('diario')"
+            title="Forçar coleta de dados diários (cotação, indicadores)">
+            📊 Atualizar Diário
+          </button>
+          <button class="btn btn-outline" onclick="forcarColeta('trimestral')"
+            title="Forçar coleta de dados trimestrais (balanços)">
+            📈 Atualizar Trimestral
+          </button>
+          <button class="btn btn-primary" onclick="forcarColeta('ambos')" title="Atualizar todos os dados">
+            🔄 Atualizar Tudo
+          </button>
+        </div>
       </div>
 
       <!-- Cards de Resumo -->
@@ -359,29 +318,8 @@
     </div>
   </div>
 
+  <script src="menu-toggle.js"></script>
   <script src="empresa-detalhes.js"></script>
-  <script>
-    // Toggle Menu Function
-    function toggleMenu() {
-      const sidebar = document.getElementById('sidebar');
-      const mainContent = document.getElementById('mainContent');
-      const toggleBtn = document.getElementById('toggleBtn');
-      const menuIcon = document.getElementById('menuIcon');
-      const menuText = document.getElementById('menuText');
-
-      sidebar.classList.toggle('collapsed');
-      mainContent.classList.toggle('expanded');
-      toggleBtn.classList.toggle('menu-hidden');
-
-      if (sidebar.classList.contains('collapsed')) {
-        menuIcon.textContent = '☰';
-        menuText.textContent = 'Mostrar Menu';
-      } else {
-        menuIcon.textContent = '✕';
-        menuText.textContent = 'Ocultar Menu';
-      }
-    }
-  </script>
 </body>
 
 </html>

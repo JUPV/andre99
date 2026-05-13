@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Relatórios e Logs - Fundamentus</title>
   <link rel="stylesheet" href="relatorios.css">
+  <link rel="stylesheet" href="menu-toggle.css">
 </head>
 
 <body>
@@ -28,24 +29,16 @@
             <span class="nav-icon">🏢</span>
             <span>Empresas</span>
           </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Gerenciamento</div>
           <a href="cadastro.html" class="nav-item">
             <span class="nav-icon">➕</span>
             <span>Nova Empresa</span>
           </a>
-        </div>
-
-        <div class="nav-section">
-          <div class="nav-section-title">Análise</div>
-          <a href="comparativo.html" class="nav-item">
-            <span class="nav-icon">📈</span>
-            <span>Comparativo</span>
-          </a>
-        </div>
-
-        <div class="nav-section">
-          <div class="nav-section-title">Sistema</div>
           <a href="status-coletas.html" class="nav-item">
-            <span class="nav-icon">📋</span>
+            <span class="nav-icon">🔄</span>
             <span>Status Coletas</span>
           </a>
           <a href="relatorios.html" class="nav-item active">
@@ -53,7 +46,25 @@
             <span>Relatórios</span>
           </a>
         </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Análise</div>
+          <a href="comparativo.html" class="nav-item">
+            <span class="nav-icon">📈</span>
+            <span>Comparativos</span>
+          </a>
+        </div>
       </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar">A</div>
+          <div class="user-details">
+            <div class="user-name">André</div>
+            <div class="user-role">Administrador</div>
+          </div>
+        </div>
+      </div>
     </aside>
 
     <!-- Conteúdo Principal -->
@@ -192,6 +203,7 @@
     </main>
   </div>
 
+  <script src="menu-toggle.js"></script>
   <script src="relatorios.js"></script>
 </body>
 

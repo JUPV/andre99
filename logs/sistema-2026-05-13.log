@@ -1,0 +1,4 @@
+{"timestamp":"2026-05-13T21:26:55.570Z","tipo":"success","modulo":"SERVIDOR","mensagem":"Servidor iniciado na porta 3000","detalhes":{"urls":{"dashboard":"http://localhost:3000/dashboard.html","relatorios":"http://localhost:3000/relatorios.html","api":"http://localhost:3000/api/empresas"}}}
+{"timestamp":"2026-05-13T21:26:55.574Z","tipo":"info","modulo":"SISTEMA","mensagem":"Iniciando serviço de coleta automática"}
+{"timestamp":"2026-05-13T21:26:55.578Z","tipo":"success","modulo":"SISTEMA","mensagem":"Serviço de coleta automática iniciado com sucesso","detalhes":{"agendamentos":["9h diário","18h diário","a cada 3h trimestral"]}}
+{"timestamp":"2026-05-13T21:26:55.578Z","tipo":"info","modulo":"SISTEMA","mensagem":"Aguardando próximo horário agendado para coleta automática"}

@@ -262,13 +262,10 @@ export function iniciarColetaAutomatica() {
     agendamentos: ['9h diário', '18h diário', 'a cada 3h trimestral']
   });
 
-  // Executar uma coleta inicial logo após iniciar
-  setTimeout(async () => {
-    console.log('🚀 Executando coleta inicial...');
-    logger.info('SISTEMA', 'Executando coleta inicial após startup');
-    await coletarDadosDiarios();
-    await verificarEColetarTrimestrais();
-  }, 5000); // Aguarda 5 segundos para dar tempo do servidor iniciar
+  // NOTA: Coleta inicial removida para evitar sobrecarga
+  // As coletas serão executadas apenas nos horários agendados ou via API manual
+  console.log('💡 Dica: Use a API /api/coleta/executar para forçar coleta manual');
+  logger.info('SISTEMA', 'Aguardando próximo horário agendado para coleta automática');
 }
 
 // Executar coleta manual (para testes ou chamada via API)

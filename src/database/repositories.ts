@@ -282,14 +282,22 @@ export const logColetaRepository = {
       return true; // Nunca tentou, deve tentar
     }
 
+    const agora = Date.now();
+    const ultimaTentativaMs = new Date(ultimaTentativa.tentativaEm).getTime();
+    const horasDesdeUltimaTentativa = (agora - ultimaTentativaMs) / (1000 * 60 * 60);
+
+    // Se foi sucesso, verificar intervalo baseado no tipo
     if (ultimaTentativa.status === 'sucesso') {
-      return false; // Já coletou com sucesso, não precisa retentar agora
+      if (tipoColeta === 'diario') {
+        // Dados diários: Coletar novamente após 24 horas
+        return horasDesdeUltimaTentativa >= 24;
+      } else {
+        // Dados trimestrais: Coletar novamente após 90 dias (2160 horas)
+        return horasDesdeUltimaTentativa >= (90 * 24);
+      }
     }
 
-    // Se falhou ou dados indisponíveis, verificar se passaram 3 horas
-    const horasDesdeUltimaTentativa =
-      (Date.now() - new Date(ultimaTentativa.tentativaEm).getTime()) / (1000 * 60 * 60);
-
+    // Se falhou ou dados indisponíveis, tentar novamente após 3 horas
     return horasDesdeUltimaTentativa >= 3;
   },
 

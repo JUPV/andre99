@@ -204,23 +204,45 @@ function atualizarGrafico() {
 }
 
 // Forçar coleta de dados
-async function forcarColeta() {
-  if (!confirm(`Deseja forçar a coleta de dados de ${codigoEmpresa}?`)) {
+// Forçar coleta de dados
+async function forcarColeta(tipo = 'ambos') {
+  const tipoNome = {
+    'diario': 'dados diários',
+    'trimestral': 'dados trimestrais',
+    'ambos': 'todos os dados'
+  }[tipo] || 'dados';
+
+  if (!confirm(`Deseja forçar a coleta de ${tipoNome} de ${codigoEmpresa}?\n\nIsso irá buscar informações atualizadas do site Fundamentus.`)) {
     return;
   }
 
   try {
+    // Mostrar loading no botão
+    const botoes = document.querySelectorAll('.page-header button');
+    botoes.forEach(btn => {
+      btn.disabled = true;
+      if (btn.textContent.includes('Atualizar')) {
+        btn.innerHTML = '⏳ Coletando...';
+      }
+    });
+
     const response = await fetch('/api/coleta/executar', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        tipo: 'ambos',
+        tipo: tipo,
         codigo: codigoEmpresa
       })
     });
 
+    if (!response.ok) {
+      throw new Error('Erro ao iniciar coleta');
+    }
+
     const result = await response.json();
-    alert('Coleta iniciada! Os dados serão atualizados em alguns segundos.');
+
+    // Mostrar mensagem de sucesso
+    alert(`✅ Coleta de ${tipoNome} iniciada com sucesso!\n\nA página será recarregada em 5 segundos para mostrar os dados atualizados.`);
 
     // Recarregar dados após 5 segundos
     setTimeout(() => {
@@ -228,7 +250,10 @@ async function forcarColeta() {
     }, 5000);
   } catch (error) {
     console.error('Erro ao forçar coleta:', error);
-    alert('Erro ao iniciar coleta');
+    alert('❌ Erro ao iniciar coleta: ' + error.message);
+
+    // Restaurar botões
+    window.location.reload();
   }
 }
 

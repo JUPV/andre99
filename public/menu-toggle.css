@@ -1,0 +1,55 @@
+/* =========================================
+   ESTILOS PADRÃO PARA MENU TOGGLE
+   Incluir no <head> de páginas com toggle
+   ========================================= */
+
+/* Botão Toggle Menu */
+.toggle-menu {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1000;
+  background: #1F2937;
+  border: 1px solid #374151;
+  color: #F3F4F6;
+  padding: 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.toggle-menu:hover {
+  background: #374151;
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Sidebar com transição */
+.sidebar {
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.collapsed {
+  transform: translateX(-100%);
+}
+
+/* Main content expande quando menu colapsa */
+.main-content {
+  transition: all 0.3s ease-in-out;
+}
+
+.main-content.expanded {
+  margin-left: 0;
+  width: 100%;
+}
+
+/* Botão toggle quando menu está oculto */
+.toggle-menu.menu-hidden {
+  left: 1rem;
+}
